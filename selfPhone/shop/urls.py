@@ -30,6 +30,8 @@ urlpatterns = [
 
     path('sony/', views.sony, name='sony'),
 
+    path('google/', views.google, name='google'),
+
     # path('shop_backend/', views.shopBackend, name='shop_backend')
 
 ]

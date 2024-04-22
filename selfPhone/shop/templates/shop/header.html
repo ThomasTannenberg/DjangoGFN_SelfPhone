@@ -3,7 +3,7 @@
 <header id="header">
     <nav class="navbar">
         <div class="logo">
-            <a href="" title="SelfPhone">
+            <a href="{% url 'shop' %}" title="SelfPhone">
                 <img src="{% static 'images/logo.png' %}" alt="SelfPhone">
             </a>
         </div>
@@ -22,12 +22,12 @@
                 </div>
             </div>
             <ul>
-                <li><a class="nav-link apple" href="" title="">Apple</a></li>
-                <li><a class="nav-link samsung" href="" title="">Samsung</a></li>
-                <li><a class="nav-link google" href="" title="">Google</a></li>
-                <li><a class="nav-link sony" href="" title="">Sony</a></li>
-                <li><a class="nav-link huawei" href="" title="">Huawei</a></li>
-                <li><a class="nav-link xiaomi" href="" title="">Xiaomi</a></li>
+                <li><a class="nav-link apple" href="{% url 'apple' %}" title="">Apple</a></li>
+                <li><a class="nav-link samsung" href="{% url 'samsung' %}" title="">Samsung</a></li>
+                <li><a class="nav-link google" href="{% url 'google' %}" title="">Google</a></li>
+                <li><a class="nav-link sony" href="{% url 'sony' %}" title="">Sony</a></li>
+                <li><a class="nav-link huawei" href="{% url 'huawei' %}" title="">Huawei</a></li>
+                <li><a class="nav-link xiaomi" href="{% url 'xiaomi' %}" title="">Xiaomi</a></li>
             </ul>
         </div>
     </nav>

@@ -36,6 +36,10 @@ def sony(request):
     return render(request, 'shop/sony.html')
 
 
+def google(request):
+    return render(request, 'shop/google.html')
+
+
 def product_gallery(request):
     return render(request, 'shop/product_gallery.html')
 

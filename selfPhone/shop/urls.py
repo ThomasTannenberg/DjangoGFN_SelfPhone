@@ -32,6 +32,6 @@ urlpatterns = [
 
     path('google/', views.google, name='google'),
 
-    # path('shop_backend/', views.shopBackend, name='shop_backend')
+    path('shopBackend/', views.shopBackend, name='shopBackend'),
 
 ]

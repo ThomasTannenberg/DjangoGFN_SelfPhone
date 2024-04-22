@@ -1,9 +1,13 @@
+from .models import Product, CartItem, Order
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Costumer
 # from asgiref.sync import sync_to_async
 from . forms import EigeneUserCreationForm, AddressForm
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
@@ -121,29 +125,32 @@ def register_user(request):
     return render(request, 'shop/register.html', {'seite': seite, 'user_form': user_form, 'address_form': address_form})
 
 
-# def register_user(request):
-#     seite = 'register'
-#     form = EigeneUserCreationForm
-#     messages.success(request, "register_user geladen.")
-
-#     if request.method == 'POST':
-#         form = EigeneUserCreationForm(request.POST)
-#         if form.is_valid():
-#             benutzer = form.save(commit=False)
-#             benutzer.save()
-
-#             customer = Costumer(
-#                 first_name=request.POST['first_name'],
-#                 last_name=request.POST['last_name'],
-#                 email=request.POST['email'],
-#                 customer=benutzer)
-#             customer.save()
-
-#             login(request, benutzer)
-#             messages.success(request, "Benutzerkonto wurde erstellt.")
-#             return redirect('shop')
-#         else:
-#             messages.error(
-#                 request, "Fehler beim Erstellen des Benutzerkontos.")
-
-#     return render(request, 'shop/register.html', {'seite': seite, 'form': form})
+@require_POST  # Stellt sicher, dass diese View nur POST-Anfragen akzeptiert... fliegt vielleicht raus
+def shopBackend(request):
+    try:
+        data = json.loads(request.body)
+        action = data.get('action')
+        if action == 'add_to_cart':
+            product_id = data.get('product_id')
+            quantity = data.get('quantity', 1)
+            product = Product.objects.get(id=product_id)
+            cart_item, created = CartItem.objects.get_or_create(
+                product=product,
+                defaults={'quantity': quantity}
+            )
+            if not created:
+                cart_item.quantity += int(quantity)
+                cart_item.save()
+            return JsonResponse({'message': 'Produkt erfolgreich zum Warenkorb hinzugefügt', 'cart_quantity': cart_item.quantity}, status=200)
+        elif action == 'create_order':
+            # Logik zur Erstellung einer Bestellung?????
+            # Kann ich one DB schlecht testen
+            pass
+        else:
+            return JsonResponse({'error': 'Unbekannte Aktion'}, status=400)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Ungültiges JSON'}, status=400)
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Produkt nicht gefunden'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST
 # F() Expression ermöglicht es, die Datenbank direkt zu aktualisieren
 from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -57,8 +58,32 @@ def basket(request):
     return render(request, 'shop/basket.html')
 
 
+@login_required
 def checkout(request):
-    return render(request, 'shop/checkout.html')
+    try:
+        customer = Costumer.objects.get(customer=request.user)
+        address = Address.objects.filter(customer=customer).first()
+        cart_items = CartItem.objects.filter(
+            product__smartphone__customer=customer, is_ordered=False)
+        if not cart_items:
+            messages.info(request, "Ihr Warenkorb ist leer.")
+            return render(request, 'shop/checkout.html', {
+                'customer': customer,
+                'address': address,
+                'cart_items': cart_items
+            })
+        return render(request, 'shop/checkout.html', {
+            'customer': customer,
+            'address': address,
+            'cart_items': cart_items
+        })
+    except Costumer.DoesNotExist:
+        messages.error(request, "Kundeninformationen nicht gefunden.")
+        return redirect('login')
+    except Exception as e:
+        # Für andere unerwartete Ausnahmen
+        messages.error(request, f"Ein Fehler ist aufgetreten: {str(e)}")
+        return redirect('home')
 
 
 def test(request):
@@ -158,10 +183,10 @@ def shopBackend(request):
                                 status=200)
         elif action == 'create_order':
             customer = Costumer.objects.get(user=request.user)
-            # Hier müssen Sie prüfen, welche Adresse verwendet werden soll
+
             address = Address.objects.filter(customer=customer).first()
             order = Order.objects.create(customer=customer, address=address)
-            # Nimmt an, dass CartItem eine Verbindung zu Customer hat
+
             cart_items = CartItem.objects.filter(
                 product__smartphone__customer=customer, is_ordered=False)
             for item in cart_items:

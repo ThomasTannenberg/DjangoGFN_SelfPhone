@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>Warenkorb</h2>
+    {% if cart_items %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Menge</th>
+                    <th>Preis</th>
+                    <th>Gesamt</th>
+                    <th>Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.smartphone.basic_price }} €</td>
+                        <td>{{ item.get_total_price }} €</td>
+                        <td>
+                            <form action="{% url 'update_cart' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="cart_item_id" value="{{ item.id }}">
+                                <input type="number" name="quantity" min="1" value="{{ item.quantity }}">
+                                <button type="submit">Aktualisieren</button>
+                            </form>
+                            <form action="{% url 'remove_from_cart' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="cart_item_id" value="{{ item.id }}">
+                                <button type="submit">Entfernen</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <a href="{% url 'checkout' %}" class="btn btn-primary">Zur Kasse gehen</a>
+        </div>
+    {% else %}
+        <p>Ihr Warenkorb ist leer.</p>
+    {% endif %}
+</div>

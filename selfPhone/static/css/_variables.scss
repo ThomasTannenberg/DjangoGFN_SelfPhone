@@ -4,7 +4,7 @@ $breakpoint-lg:   992px;
 $breakpoint-xl:  1200px;
 $breakpoint-xxl: 1600px;
 
-$base-width: $breakpoint-xxl; 
+$base-width: 2000px; 
 
 $font-family: "Epilogue", Arial, Helvetica, sans-serif;
 $font-base: 16px;
@@ -22,9 +22,11 @@ $color-accent-secondary: darken($color-accent-primary, 10%);
 $fs-1: 72px;
 $fs-2: 36px;
 $fs-3: 28px;
-$fs-4: 24px;
+$fs-4: 20px;
 $fs-5: 18px;
 $fs-6: 16px;
+$fs-small: 14px;
+$fs-smaller: 12px;
 
 $spacing-xs:  .5rem;
 $spacing-sm:   1rem;

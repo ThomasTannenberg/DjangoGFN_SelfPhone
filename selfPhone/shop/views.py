@@ -9,11 +9,31 @@ from . forms import EigeneUserCreationForm, AddressForm
 
 
 def shop(request):
-    return render(request, 'shop/product_details.html')
+    return render(request, 'shop/start.html')
 
 
 def start(request):
     return render(request, 'shop/start.html')
+
+
+def apple(request):
+    return render(request, 'shop/apple.html')
+
+
+def samsung(request):
+    return render(request, 'shop/samsung.html')
+
+
+def huawei(request):
+    return render(request, 'shop/huawei.html')
+
+
+def xiaomi(request):
+    return render(request, 'shop/xiaomi.html')
+
+
+def sony(request):
+    return render(request, 'shop/sony.html')
 
 
 def product_gallery(request):

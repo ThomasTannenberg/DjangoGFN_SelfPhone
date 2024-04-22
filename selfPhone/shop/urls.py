@@ -20,6 +20,16 @@ urlpatterns = [
 
     path('register/', views.register_user, name='register'),
 
+    path('apple/', views.apple, name='apple'),
+
+    path('samsung/', views.samsung, name='samsung'),
+
+    path('huawei/', views.huawei, name='huawei'),
+
+    path('xiaomi/', views.xiaomi, name='xiaomi'),
+
+    path('sony/', views.sony, name='sony'),
+
     # path('shop_backend/', views.shopBackend, name='shop_backend')
 
 ]

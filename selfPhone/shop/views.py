@@ -97,6 +97,8 @@ def logout_user(request):
 
 def register_user(request):
     seite = 'register'
+    user_form = EigeneUserCreationForm()
+    address_form = AddressForm()
     if request.method == 'POST':
         user_form = EigeneUserCreationForm(request.POST)
         address_form = AddressForm(request.POST)
@@ -104,8 +106,7 @@ def register_user(request):
             benutzer = user_form.save()
             if Costumer.objects.filter(customer=benutzer).exists():
                 messages.error(request, "Benutzerkonto bereits vorhanden.")
-                return render(request, 'shop/register.html', {'seite': seite,
-                                                              'user_form': user_form, 'address_form': address_form})
+                return render(request, 'shop/register.html', {'seite': seite, 'user_form': user_form, 'address_form': address_form})
 
             customer = Costumer(
                 first_name=user_form.cleaned_data['first_name'],

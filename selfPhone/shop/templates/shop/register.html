@@ -1,24 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'slickslider/slick.css' %}">
+<link rel="stylesheet" href="{% static 'slickslider/slick-theme.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
 
 
+<body>
 <h1>Registrieren</h1>
 <div>
     <form id="registerForm" method="POST" action="">
+
         {% csrf_token %}
-        <h2>Benutzerinformation:</h2>
-        {% for field in user_form %}
-        <div class="">{{ field.label }}</div>
-        {{ field }}
-        {% endfor %}
-        <h2>Adresse:</h2>
-        {% for field in address_form %}
-        <div class="">{{ field.label }}</div>
-        {{ field }}
-        {% endfor %}
-        <br>
-        <button id="registerButton" type="submit">Registrieren</button>
+
+        <div id="userInfo">
+            <h2>Benutzerinformation:</h2>
+            <div id="Benutzername">
+                <div class="field-label">{{ user_form.username.label }}</div>
+                {{ user_form.username }}
+            </div>
+            <div id="Kundenname">
+                <div class="field-label">{{ user_form.first_name.label }}</div>
+                {{ user_form.first_name }}
+                <div class="field-label">{{ user_form.last_name.label }}</div>
+                {{ user_form.last_name }}
+            </div>
+            <div id="emailContainer">
+                <div class="field-label">{{ user_form.email.label }}</div>
+                {{ user_form.email }}
+            </div>
+            <div id="passwordContainer">
+                <div class="field-label">{{ user_form.password.label }}</div>
+                {{ user_form.password }}
+                <div class="field-label">{{ user_form.password_repeat.label }}</div>
+                {{ user_form.password_repeat }}
+            </div>
+        </div>
+
+        <div id="addressInfo">
+            <h2>Adresse:</h2>
+            <div id="cityPostalContainer">
+                <div class="field-label">{{ address_form.postal_code.label }}</div>
+                {{ address_form.postal_code }}
+                <div class="field-label">{{ address_form.city.label }}</div>
+                {{ address_form.city }}
+            </div>
+            <div id="streetNumberContainer">
+                <div class="field-label">{{ address_form.street.label }}</div>
+                {{ address_form.street }}
+                <div class="field-label">{{ address_form.house_number.label }}</div>
+                {{ address_form.house_number }}
+            </div>
+            <button id="registerButton" type="submit">Registrieren</button>
+        </div>
     </form>
     <div>
         <p>Bereits Kunde?<a href="{% url 'shop' %}">Zurück zum Shop</a></p>
     </div>
 </div>
 
+<script src="{% static 'slickslider/jquery-1.11.0.min.js' %}"></script>
+<script src="{% static 'slickslider/jquery-migrate-1.2.1.min.js' %}"></script>
+<script src="{% static 'slickslider/slick.min.js' %}"></script>    
+<script src="{% static 'js/image-slider.js' %}"></script>
+<script src="{% static 'js/header.js' %}"></script>
+<script src="{% static 'js/brand-slider.js' %}"></script>
+</body>

@@ -157,6 +157,7 @@ class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     timestamp = models.DateTimeField(auto_now_add=True)
+    is_ordered = models.BooleanField(default=False)
 
     @property
     def get_total_price(self):

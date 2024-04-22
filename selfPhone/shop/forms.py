@@ -36,7 +36,7 @@ class AddressForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['postcode'].widget.attrs.update({'class': 'form'})
-        self.fields['postcode'].label = 'Postleitzahl'
+        self.fields['postcode'].label = 'PLZ'
         self.fields['city'].widget.attrs.update({'class': 'form'})
         self.fields['city'].label = 'Stadt'
         self.fields['street'].widget.attrs.update({'class': 'form'})

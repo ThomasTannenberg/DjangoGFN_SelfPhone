@@ -1,15 +1,101 @@
 {% extends 'shop/base.html' %}
+
 {% load static %}
- 
+
+
 {% block content %}
-<p>Start page</p>
-<p>Start page</p>
-<p>Start page</p>
-<p>Start page</p>
-<p>Start page</p>
-<p>Start page</p>
-<p>Start page</p>
-<p>Start page</p>
-<p>Start page</p>
+
+    {% comment %} Header Video {% endcomment %}
+
+    <div class="container-full">
+        <div class="video-container">
+            <video preload="auto" autoplay="" loop="" muted="" playsinline="">
+                <source src="{% static 'videos/iphone15.mp4' %}" type="video/mp4">
+            </video>
+
+            <div class="video-overlay">
+                <div class="video-headline">iPhone 15</div>
+                <div class="video-subline">Entdecke jetzt das neue iPhone</div>
+                <button href="" class="video-btn">Mehr erfahren</button>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} Brand Slider {% endcomment %}
+
+    <div id="brand-slider-wrapper" class="container-full">
+        <div class="container">
+            <div class="brand-slider">
+                <div class="brand-slider-item">
+                    <a href="">
+                        <img src="{% static 'images/icons/brand-icons/icon-apple-50.png' %}" alt="Apple Markenshop">
+                    </a>
+                </div>
+                <div class="brand-slider-item">
+                    <a href="">
+                    <img src="{% static 'images/icons/brand-icons/icon-samsung-50.png' %}" alt="Samsung Markenshop">
+                </a>
+                </div>
+                <div class="brand-slider-item">
+                    <a href="">
+                    <img src="{% static 'images/icons/brand-icons/icon-google-50.png' %}" alt="Google Markenshop">
+                </a>
+                </div>
+                <div class="brand-slider-item">
+                    <a href="">
+                    <img src="{% static 'images/icons/brand-icons/icon-sony-50.png' %}" alt="Sony Markenshop">
+                </a>
+                </div>
+                <div class="brand-slider-item">
+                    <a href="">
+                    <img src="{% static 'images/icons/brand-icons/icon-huawei-50.png' %}" alt="Huawei Markenshop">
+                </a>
+                </div>
+                <div class="brand-slider-item">
+                    <a href="">
+                    <img src="{% static 'images/icons/brand-icons/icon-xiaomi-50.png' %}" alt="Xiaomi Markenshop">
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} Advertising Block {% endcomment %}
+
+    <div id="ad-container-wrapper" class="container-full">
+        <div class="container">
+            <div class="ad-container">
+                <div class="ad-item">
+                    <img src=" {% static 'images/start/samsung-galaxy-s24.png' %}" alt="Samsung Galaxy S24">
+                    <div class="ad-item-overlay">
+                        <div class="ad-item-headline">Samsung Galaxy S24</div>
+                        <a href="" class="ad-item-button" title="">Mehr erfahren</a>
+                    </div>
+                </div>
+                <div class="ad-item">
+                    <img src=" {% static 'images/start/huawei-p60.png' %}" alt="Huawei P60">
+                    <div class="ad-item-overlay">
+                        <div class="ad-item-headline">Huawei P60</div>
+                        <a href="" class="ad-item-button" title="">Mehr erfahren</a>
+                    </div>
+                </div>
+                <div class="ad-item">
+                    <img src=" {% static 'images/start/google-pixel8-pro.png' %}" alt="Google Pixel 8 Pro">
+                    <div class="ad-item-overlay">
+                        <div class="ad-item-headline">Google Pixel 8 Pro</div>
+                        <a href="" class="ad-item-button" title="">Mehr erfahren</a>
+                    </div>
+                </div>
+                <div class="ad-item">
+                    <img src=" {% static 'images/start/xiaomi-redmi-note-13-pro.png' %}" alt="Xiaomi Redmi Note 13 Pro">
+                    <div class="ad-item-overlay">
+                        <div class="ad-item-headline">Xiaomi Redmi Note 13 Pro</div>
+                        <a href="" class="ad-item-button" title="">Mehr erfahren</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock content %}

@@ -19,6 +19,9 @@ $color-dark: #000;
 $color-accent-primary: #20b2aa;
 $color-accent-secondary: darken($color-accent-primary, 10%); 
 
+$color-overlay-dark: rgba(0, 0, 0, .5);
+$color-overlay-light: rgba(255, 255, 255, .5);
+
 $fs-1: 72px;
 $fs-2: 36px;
 $fs-3: 28px;
@@ -55,3 +58,7 @@ $transition-nav-slider: ease-in-out .5s all;
 // NAV ITEMS
 
 $transition-nav-item: ease .25s all;
+
+// BRAND SLIDER
+
+$transition-brand-slider: ease 1s all;

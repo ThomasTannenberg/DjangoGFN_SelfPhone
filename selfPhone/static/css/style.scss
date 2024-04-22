@@ -87,6 +87,34 @@ ul {
     margin: 0 auto;
 }
 
+// Button
+
+@mixin btn {
+    border: 0;
+    border-radius: $spacing-xs;
+    padding: $spacing-sm $spacing-md calc($spacing-sm - 3px) ;
+    margin-top: $spacing-md;
+    font-size: $fs-smaller;
+    width: 240px;
+    max-width: 100%;
+    color: $color-light;    
+    background: {
+        color: transparent;
+        image: linear-gradient(90deg, $color-accent-secondary 50%, $color-overlay-light 50%);
+        size: 200%;
+        position: right;
+    }
+    text-align: center;
+    line-height: 1;
+    transition: $transition-nav-item;
+    cursor: pointer;
+    &:hover {
+        background: {
+            position: left;
+        }
+    }
+}
+
 // Header
 
 #header, 
@@ -338,7 +366,7 @@ $brands: apple, samsung, google, sony, huawei, xiaomi;
     left: 100%;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, .5);
+    background: $color-overlay-dark;
     opacity: 0;
     cursor: pointer;
     transition: $transition-nav-slider;
@@ -369,19 +397,21 @@ main {
     right: $spacing-sm;
 }
 
-.slick-list {
-    @include breakpoint($breakpoint-sm) {
-        padding: 0 20% 0 0 !important;
+#image-slider {
+    .slick-list {
+        @include breakpoint($breakpoint-sm) {
+            padding: 0 20% 0 0 !important;
+        }
+        @include breakpoint($breakpoint-md) {
+            padding: 0 33% 0 0 !important;
+        }
     }
-    @include breakpoint($breakpoint-md) {
-        padding: 0 33% 0 0 !important;
-    }
-}
 
-.slick-slide {
-    img {
-        width: 100%;
-        max-width: 100%;
+    .slick-slide {
+        img {
+            width: 100%;
+            max-width: 100%;
+        }
     }
 }
 
@@ -599,5 +629,157 @@ main {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid $color-ternary;
+    }
+}
+
+// STARTPAGE
+
+// Videobanner
+
+.video-container {
+    position: relative;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    video {
+        object-fit: cover;
+        min-width: 100%;
+    }
+    .video-overlay {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        color: $color-light;
+        background: $color-overlay-dark;
+        padding: $spacing-sm;
+        text-align: center;
+        .video-headline {
+            font-size: $fs-2;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: -2px;
+            @include breakpoint($breakpoint-md) {
+                font-size: calc($fs-1 * .75);
+            }
+            @include breakpoint($breakpoint-lg) {
+                font-size: $fs-1;
+            }
+        }
+        .video-subline {
+            font-size: $fs-smaller;
+            margin: $spacing-sm 0;
+            @include breakpoint($breakpoint-md) {
+                font-size: $fs-small;
+            }
+        }
+        .video-btn {
+            @include btn;
+        }
+    }
+}
+
+// Brand Slider
+
+#brand-slider-wrapper {    
+    padding: $spacing-md;
+    background: $color-ternary;
+}
+
+.brand-slider {
+    max-width: $breakpoint-xxl;
+    margin: 0 auto;
+    .brand-slider-item {
+        a {
+            display: block;
+            overflow: hidden;
+            transition: $transition-brand-slider;
+            img {
+                max-width: 50px;
+                padding: $spacing-xs;
+                margin: 0 auto;
+                filter: invert(1);
+            }
+            &:hover {
+                img {
+                    transform: scale(calc(1.25));
+                    transition: $transition-brand-slider;
+                }
+            }
+        }
+    }
+}
+
+// Advertising Container
+
+.ad-container {
+    width: $breakpoint-xxl;
+    max-width: 100%;
+    padding: $spacing-sm;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+    .ad-item {
+        position: relative;
+        flex: 1 1 calc(100%);
+        overflow: hidden;
+        @include breakpoint($breakpoint-md) {
+            flex: 1 1 calc(50% - $spacing-xs);
+        }
+        img {
+            width: 100%;
+            max-width: 100%;
+            transition: $transition-brand-slider;
+        }
+        &:hover img {
+            transform: scale(1.25);
+        }
+        .ad-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: $color-overlay-dark;
+            color: $color-light;
+            text-align: center;
+            transition: $transition-nav-item;
+            &:hover {
+                background: lighten($color-overlay-dark, 20%);
+            }
+            .ad-item-headline {
+                font-size: $fs-6;
+                text-transform: uppercase;
+                font-weight: 600;
+                @include breakpoint($breakpoint-sm) {
+                    font-size: $fs-5;
+                }
+                @include breakpoint($breakpoint-md) {
+                    font-size: $fs-4;
+                }
+                @include breakpoint($breakpoint-lg) {
+                    font-size: $fs-3;
+                }
+            }
+            .ad-item-button {
+                @include btn;
+                width: 180px;
+                max-width: 100%;
+                font-size: calc($fs-smaller * .875);
+                background-image: linear-gradient(90deg, $color-dark 50%, $color-overlay-light 50%);
+            }
+        }
     }
 }

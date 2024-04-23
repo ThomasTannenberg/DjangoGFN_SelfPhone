@@ -87,6 +87,16 @@ ul {
     margin: 0 auto;
 }
 
+@mixin base-container {
+    width: $breakpoint-xxl;
+    max-width: 100%;
+    padding: $spacing-sm;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+}
+
 // Button
 
 @mixin btn {
@@ -720,13 +730,7 @@ main {
 // Advertising Container
 
 .ad-container {
-    width: $breakpoint-xxl;
-    max-width: 100%;
-    padding: $spacing-sm;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-xs;
+    @include base-container;
     .ad-item {
         position: relative;
         flex: 1 1 calc(100%);
@@ -780,6 +784,170 @@ main {
                 font-size: calc($fs-smaller * .875);
                 background-image: linear-gradient(90deg, $color-dark 50%, $color-overlay-light 50%);
             }
+        }
+    }
+}
+
+// FOOTER
+
+#footer {
+    background: $color-ternary;
+}
+
+.footer-container {
+    @include base-container;
+    .footer-item {
+        flex: 1 1 100%;
+        font-size: $fs-smaller;
+        padding: $spacing-md $spacing-sm;
+        @include breakpoint($breakpoint-sm) {
+            flex: 1 1 calc(50% - $spacing-xs);
+        }
+        @include breakpoint($breakpoint-md) {
+            flex: 1 1 calc(25% - $spacing-xs);
+        }
+        .footer-item-headline {
+            font-weight: 600;
+            margin-bottom: $spacing-sm;
+        }
+        a {
+            display: block;
+            width: 100%;
+            padding: $spacing-xs 0;
+            transition: $transition-nav-item;
+            &:hover {
+                color: $color-accent-primary;
+            }
+        }
+        .footer-item-container:not(:last-of-type) {
+            padding-bottom: $spacing-xl;
+        }
+        .footer-item-icons {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: $spacing-xs;
+        }
+    }
+}
+
+.footer-lower {
+    padding: $spacing-sm;
+    text-align: center;
+    background: $color-dark;
+    color: $color-light;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+// PRODUCT GALLERY
+
+.gallery-container {
+    width: $breakpoint-xxl;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: $spacing-xl $spacing-xs;
+    display: grid;
+    gap: $spacing-xs;
+    @include breakpoint($breakpoint-xs) {
+        grid-template-columns: repeat(auto-fill, minmax(calc(50% - $spacing-xs), 1fr));
+    }
+    @include breakpoint($breakpoint-md) {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - $spacing-xs), 1fr));
+    }
+    @include breakpoint($breakpoint-lg) {
+        grid-template-columns: repeat(auto-fill, minmax(calc(25% - $spacing-xs), 1fr));
+    }
+    @include breakpoint($breakpoint-xl) {
+        grid-template-columns: repeat(auto-fill, minmax(calc(20% - $spacing-xs), 1fr));
+    }
+    .gallery-item {
+        background: $color-ternary;
+        padding: $spacing-sm;
+        overflow: hidden;
+        .gallery-item-image {
+            img {
+                width: 100%;
+                max-width: 100%;
+                transition: $transition-brand-slider;
+            }
+        }
+        &:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-item-content {
+            text-align: center;
+            .brand {
+                font-weight: 600;
+            }
+            .color {
+                font-size: $fs-smaller;
+                margin: $spacing-xs 0;
+            }
+            .price {
+                color: $color-secondary;
+                font-size: $fs-smaller;
+                letter-spacing: 0;
+                font-weight: 600;
+            }
+        }
+        .variations {
+            display: flex;
+            justify-content: center;
+            gap: $spacing-xs;
+            margin-top: $spacing-sm;
+            .var {
+                display: inline-block;
+                height: 16px;
+                width: 16px;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+// MARKENSHOP BANNER
+
+$bannerimage: apple, samsung, google, sony, huawei, xiaomi;
+
+@each $image in $bannerimage {
+    #banner[data-brand="#{$image}"]{
+        background-image: url('../images/banner/#{$image}.png');
+    }
+}
+
+#banner {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    background: {
+        size: cover;
+        position: center;
+        repeat: no-repeat;
+    }
+    @include breakpoint($breakpoint-md) {
+        height: 75vh;
+    }
+    .banner-overlay {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $color-overlay-dark;
+        font-size: $fs-2;
+        font-weight: 600;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: $color-light;
+        @include breakpoint($breakpoint-sm) {
+            font-size: calc($fs-2 * 1.5);
+        }
+        @include breakpoint($breakpoint-md) {
+            font-size: $fs-1;
         }
     }
 }

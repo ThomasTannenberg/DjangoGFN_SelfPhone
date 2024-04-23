@@ -2,6 +2,13 @@
 {% load static %}
  
 {% block content %}
-{% include 'shop/product_gallery.html' %}
 
+<div id="banner" data-brand="apple" class="container-full">
+    <div class="banner-overlay">
+        <div class="banner-headline">Apple</div>
+    </div>
+</div>
+
+{% include 'shop/product_gallery.html' %}
+ 
 {% endblock content %}

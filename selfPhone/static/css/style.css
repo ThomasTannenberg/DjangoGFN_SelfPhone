@@ -816,4 +816,198 @@ main {
 }
 .ad-container .ad-item .ad-item-overlay .ad-item-button:hover {
   background-position: left;
+}
+
+#footer {
+  background: #eee;
+}
+
+.footer-container {
+  width: 1600px;
+  max-width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.footer-container .footer-item {
+  flex: 1 1 100%;
+  font-size: 12px;
+  padding: 1.5rem 1rem;
+}
+@media only screen and (min-width: 576px) {
+  .footer-container .footer-item {
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+}
+@media only screen and (min-width: 768px) {
+  .footer-container .footer-item {
+    flex: 1 1 calc(25% - 0.5rem);
+  }
+}
+.footer-container .footer-item .footer-item-headline {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.footer-container .footer-item a {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0;
+  transition: ease 0.25s all;
+}
+.footer-container .footer-item a:hover {
+  color: #20b2aa;
+}
+.footer-container .footer-item .footer-item-container:not(:last-of-type) {
+  padding-bottom: 3rem;
+}
+.footer-container .footer-item .footer-item-icons {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+}
+
+.footer-lower {
+  padding: 1rem;
+  text-align: center;
+  background: #000;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.gallery-container {
+  width: 1600px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 3rem 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+@media only screen and (min-width: 480px) {
+  .gallery-container {
+    grid-template-columns: repeat(auto-fill, minmax(calc(50% - 0.5rem), 1fr));
+  }
+}
+@media only screen and (min-width: 768px) {
+  .gallery-container {
+    grid-template-columns: repeat(auto-fill, minmax(calc(33.3333333333% - 0.5rem), 1fr));
+  }
+}
+@media only screen and (min-width: 992px) {
+  .gallery-container {
+    grid-template-columns: repeat(auto-fill, minmax(calc(25% - 0.5rem), 1fr));
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .gallery-container {
+    grid-template-columns: repeat(auto-fill, minmax(calc(20% - 0.5rem), 1fr));
+  }
+}
+.gallery-container .gallery-item {
+  background: #eee;
+  padding: 1rem;
+  overflow: hidden;
+}
+.gallery-container .gallery-item .gallery-item-image img {
+  width: 100%;
+  max-width: 100%;
+  transition: ease 1s all;
+}
+.gallery-container .gallery-item:hover img {
+  transform: scale(1.05);
+}
+.gallery-container .gallery-item .gallery-item-content {
+  text-align: center;
+}
+.gallery-container .gallery-item .gallery-item-content .brand {
+  font-weight: 600;
+}
+.gallery-container .gallery-item .gallery-item-content .color {
+  font-size: 12px;
+  margin: 0.5rem 0;
+}
+.gallery-container .gallery-item .gallery-item-content .price {
+  color: #666;
+  font-size: 12px;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.gallery-container .gallery-item .variations {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.gallery-container .gallery-item .variations .var {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
+#banner[data-brand=apple] {
+  background-image: url("../images/banner/apple.png");
+}
+
+#banner[data-brand=samsung] {
+  background-image: url("../images/banner/samsung.png");
+}
+
+#banner[data-brand=google] {
+  background-image: url("../images/banner/google.png");
+}
+
+#banner[data-brand=sony] {
+  background-image: url("../images/banner/sony.png");
+}
+
+#banner[data-brand=huawei] {
+  background-image: url("../images/banner/huawei.png");
+}
+
+#banner[data-brand=xiaomi] {
+  background-image: url("../images/banner/xiaomi.png");
+}
+
+#banner {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media only screen and (min-width: 768px) {
+  #banner {
+    height: 75vh;
+  }
+}
+#banner .banner-overlay {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #fff;
+}
+@media only screen and (min-width: 576px) {
+  #banner .banner-overlay {
+    font-size: 54px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #banner .banner-overlay {
+    font-size: 72px;
+  }
 }/*# sourceMappingURL=style.css.map */

@@ -27,23 +27,26 @@ def apple(request):
 
 
 def samsung(request):
-    return render(request, 'shop/samsung.html')
+    return redirect('product_gallery', manufacturer='Samsung')
 
 
 def huawei(request):
-    return render(request, 'shop/huawei.html')
+    return redirect('product_gallery', manufacturer='Huawei')
 
 
+# Die Ansicht für die Produktgalerie
 def xiaomi(request):
-    return render(request, 'shop/xiaomi.html')
+    return redirect('product_gallery', manufacturer='Xiaomi')
 
 
+# Die Ansicht für die Produktgalerie
 def sony(request):
-    return render(request, 'shop/sony.html')
+    return redirect('product_gallery', manufacturer='Sony')
 
 
+# Die Ansicht für die Produktgalerie
 def google(request):
-    return render(request, 'shop/google.html')
+    return redirect('product_gallery', manufacturer='Google')
 
 
 def product_gallery(request, manufacturer):

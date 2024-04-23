@@ -1,1 +1,42 @@
-test
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if manufacturer == 'Apple' %}
+<div id="banner" data-brand="apple" class="container-full">
+    <div class="banner-overlay">
+        <div class="banner-headline">Apple</div>
+    </div>
+</div>
+{% endif %}
+
+<div class="container-full">
+    <div class="container">
+        <div class="gallery-container">
+            {% for smartphone in smartphones %}
+            <div class="gallery-item">
+                <div class="gallery-item-image">
+                    {% comment %} <a href="{% url 'smartphone_details' %}" title="{{ smartphone.model }}"> {% endcomment %}
+                        {% comment %} <img src="{{ smartphone.pictureFront.url }}" alt="{{ smartphone.model }}">  {% endcomment %}
+                    </a>
+                </div>
+                <div class="gallery-item-content">
+                    <div class="gallery-item-name">
+                        <span class="brand">{{ smartphone.manufacturer }}</span>
+                        <span class="model">{{ smartphone.model }}</span>
+                        <div class="color">{{ smartphone.color }}</div>
+                    </div>
+                    <div class="price">{{ smartphone.basic_price }} €</div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Keine Produkte von {{ manufacturer }} gefunden.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<p>Hersteller: {{ manufacturer }}</p>
+
+{% endblock content %}

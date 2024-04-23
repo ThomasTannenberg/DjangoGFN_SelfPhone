@@ -23,7 +23,7 @@ def start(request):
 
 
 def apple(request):
-    return render(request, 'shop/apple.html')
+    return redirect('product_gallery', manufacturer='Apple')
 
 
 def samsung(request):
@@ -46,8 +46,9 @@ def google(request):
     return render(request, 'shop/google.html')
 
 
-def product_gallery(request):
-    return render(request, 'shop/product_gallery.html')
+def product_gallery(request, manufacturer):
+    smartphones = Smartphone.objects.filter(manufacturer=manufacturer)
+    return render(request, 'shop/product_gallery.html', {'smartphones': smartphones, 'manufacturer': manufacturer})
 
 
 def product_details(request):

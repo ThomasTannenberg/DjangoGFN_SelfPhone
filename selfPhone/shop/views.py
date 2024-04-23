@@ -54,7 +54,6 @@ def product_gallery(request, manufacturer):
 def product_details(request, smartphone_id):
     smartphone = get_object_or_404(Smartphone, pk=smartphone_id)
 
-    # Fetching all variations and using Python to filter out unique entries
     color_variations = Smartphone.objects.filter(
         manufacturer=smartphone.manufacturer,
         model=smartphone.model
@@ -70,10 +69,11 @@ def product_details(request, smartphone_id):
         model=smartphone.model
     ).exclude(pk=smartphone.pk).values('memory_size', 'id')
 
-    # Utilizing Python's set to filter unique variations by converting the values to a dictionary
     color_variations = {v['color']: v for v in color_variations}.values()
-    storage_variations = {v['storage_size']: v for v in storage_variations}.values()
-    memory_variations = {v['memory_size']: v for v in memory_variations}.values()
+    storage_variations = {v['storage_size']
+        : v for v in storage_variations}.values()
+    memory_variations = {v['memory_size']
+        : v for v in memory_variations}.values()
 
     return render(request, 'shop/product_details.html', {
         'smartphone': smartphone,

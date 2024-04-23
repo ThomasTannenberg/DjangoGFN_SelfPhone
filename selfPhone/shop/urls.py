@@ -9,6 +9,9 @@ urlpatterns = [
     path('product_gallery/<str:manufacturer>/',
          views.product_gallery, name='product_gallery'),
 
+    path('product_details/<int:smartphone_id>/', views.product_details,
+         name='product_details'),
+
     path('basket/', views.basket, name='basket'),
 
     path('checkout/', views.checkout, name='checkout'),

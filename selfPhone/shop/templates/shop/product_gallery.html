@@ -16,7 +16,7 @@
             {% for smartphone in smartphones %}
             <div class="gallery-item">
                 <div class="gallery-item-image">
-                    <a href="{{ smartphone.pictureFront.url }}" title="{{ smartphone.model }}">
+                    <a href="{% url 'product_details' smartphone.id %}" title="{{ smartphone.model }}">
                         <img src="{{ smartphone.pictureFront.url }}" alt="{{ smartphone.model }}"> 
                     </a>
                 </div>

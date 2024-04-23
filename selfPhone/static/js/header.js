@@ -37,8 +37,6 @@ function open(icon, slider) {
     [icon, slider].forEach(element => {
         element.classList.add("visible");
     });
-
-
 }
 
 

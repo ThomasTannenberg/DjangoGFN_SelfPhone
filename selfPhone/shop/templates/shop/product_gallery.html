@@ -48,8 +48,8 @@
             {% for smartphone in smartphones %}
             <div class="gallery-item">
                 <div class="gallery-item-image">
-                    {% comment %} <a href="{% url 'smartphone_details' %}" title="{{ smartphone.model }}"> {% endcomment %}
-                        {% comment %} <img src="{{ smartphone.pictureFront.url }}" alt="{{ smartphone.model }}">  {% endcomment %}
+                    <a href="{{ smartphone.pictureFront.url }}" title="{{ smartphone.model }}">
+                        <img src="{{ smartphone.pictureFront.url }}" alt="{{ smartphone.model }}"> 
                     </a>
                 </div>
                 <div class="gallery-item-content">

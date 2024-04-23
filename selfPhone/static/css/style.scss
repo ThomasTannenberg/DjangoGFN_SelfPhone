@@ -95,6 +95,9 @@ ul {
     display: flex;
     flex-wrap: wrap;
     gap: $spacing-xs;
+    @include breakpoint($breakpoint-xxl) {
+        width: $base-width;
+    }
 }
 
 // Button
@@ -578,6 +581,7 @@ main {
                         font-size: 12px;
                         color: $color-secondary;
                         line-height: 1;
+                        border-radius: $spacing-xs;
                     }
                 }
             }
@@ -596,11 +600,12 @@ main {
         text-align: center;
         border: none;
         background: $color-ternary;
-        border-radius: 0;
+        border-radius: $spacing-xs;
         border-right: $spacing-sm solid #eee;
     }
     button {
         border: none;
+        border-radius: $spacing-xs;
         padding: $spacing-md $spacing-xl;
         width: 100%;
         color: $color-light;
@@ -948,6 +953,209 @@ $bannerimage: apple, samsung, google, sony, huawei, xiaomi;
         }
         @include breakpoint($breakpoint-md) {
             font-size: $fs-1;
+        }
+    }
+}
+
+// REGISTRATION PAGE
+
+// Registration Lower Section
+
+.registration-container {
+    @include base-container;
+    display: block;
+    @include breakpoint($breakpoint-xl) {
+        width: $breakpoint-xxl;
+    }
+    padding: $spacing-xl 0;
+    .registration-item {
+        padding: $spacing-sm;
+    }
+    h2 {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0;
+        font-size: 28px;
+        margin: $spacing-md 0;
+    }
+    
+}
+
+#registerForm {
+    @include breakpoint($breakpoint-lg) {
+        display: flex;    
+        gap: $spacing-xl;
+        #userInfo, 
+        #addressInfo {
+            flex: 1 1 calc(50% - $spacing-xl);
+        }
+    }
+}
+
+// Input Configuration
+
+.registration-form-field {
+    position: relative;
+    .field-label {
+        position: absolute;
+        font-size: $fs-small;
+        color: $color-dark;
+        top: calc((52px - $fs-small - 2px) / 2);
+        left: $spacing-xs;
+        z-index: -1;
+        transition: $transition-nav-item;
+    }
+    input {
+        width: 100%;
+        height: 52px;
+        border: none;
+        background: rgba(230, 230, 230, .5);
+        padding: $spacing-xs;
+        margin-bottom: $spacing-sm;
+        &:focus,
+        &:focus-visible {
+            border: none;
+            outline: none;
+            font-size: $fs-small;
+            background: darken($color-ternary, 10%);
+        }
+        &:valid + .field-label,
+        &:focus + .field-label,
+        &:focus-visible + .field-label {
+            position: absolute;
+            top: calc(-1 * $fs-small / 2);
+            left: 0;
+            background: $color-dark;
+            color: $color-light;
+            padding: 0 $spacing-xs;
+            font-size: calc($fs-smaller / 6 * 5);
+            border-radius: $spacing-xs;
+            z-index: 1;
+        }  
+    }
+}
+
+@mixin form-container {
+    display: flex;
+    gap: $spacing-xs;
+}
+
+#registerForm {
+    @include breakpoint($breakpoint-sm) {
+        #kundennameContainer,
+        #passwortContainer {
+            @include form-container;
+            .registration-form-field {
+                flex: 1 1 calc(50% - ($spacing-xs / 2));
+            }
+        }
+
+        #strassennameContainer {
+            @include form-container;
+            .registration-form-field:first-of-type {
+                flex: 1 1 75%;
+            }
+        }
+
+        #plzContainer {
+            @include form-container;
+            .registration-form-field:last-of-type {
+                flex: 1 1 calc(75% - ($spacing-xs / 2));
+            }
+        }
+    }
+}
+
+#registerButton {
+    border: none;
+    border-radius: $spacing-xs;
+    padding: $spacing-md $spacing-xl;
+    margin-top: $spacing-xl;;
+    width: 100%;
+    color: $color-light;
+    letter-spacing: 1px;
+    background: {
+        image: linear-gradient(90deg, $color-accent-secondary 50%, $color-dark 50%);
+        size: 200%;
+        position: right;
+    }
+    transition: $transition-nav;
+    cursor: pointer;
+    &:hover {
+        background-position: left;
+    }
+}
+
+
+
+// Registration Upper Section
+
+#registration-header {
+    background: $color-ternary;
+    .container {
+        @include base-container;
+        min-height: 30vh;
+        @include breakpoint($breakpoint-lg) {
+            padding: $spacing-xl $spacing-sm;
+        }
+        @include breakpoint($breakpoint-xxl) {
+            width: $breakpoint-xxl;
+        }   
+        .registration-benefits-container {
+            flex: 1 1 100%;
+            letter-spacing: 0;
+            text-align: center;
+            @include breakpoint($breakpoint-lg) {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: $spacing-xl;
+            }
+            .reg-ben-item {
+                @include breakpoint($breakpoint-lg) {
+                    flex: 1 1 calc(50% - $spacing-xl);
+                }
+            }
+        } 
+        h1 {
+            font-size: $fs-2;
+            font-weight: 600;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            margin: $spacing-sm 0;
+            border-bottom: 1px solid rgba(0, 0, 0, .15);
+            @include breakpoint($breakpoint-md) {
+                font-size: calc($fs-1 * .75);
+            }
+            @include breakpoint($breakpoint-lg) {
+                margin: 0 0 $spacing-sm 0;
+            }
+        }
+    }
+}
+.already-registered-container {
+    text-align: center;
+    margin: $spacing-lg 0;
+    .reg-ben-item:last-of-type {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background: darken($color-ternary, 5%);
+    }
+    p {
+        color: #960000;
+        font-size: $fs-6;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: $spacing-xs 0;
+    }
+    a {
+        transition: $transition-nav-item;
+        font-weight: 600;
+        color: $color-secondary;
+        &:hover {
+            color: $color-dark;
         }
     }
 }

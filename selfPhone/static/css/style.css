@@ -572,6 +572,7 @@ main {
   font-size: 12px;
   color: #666;
   line-height: 1;
+  border-radius: 0.5rem;
 }
 
 .add-to-basket-container {
@@ -584,11 +585,12 @@ main {
   text-align: center;
   border: none;
   background: #eee;
-  border-radius: 0;
+  border-radius: 0.5rem;
   border-right: 1rem solid #eee;
 }
 .add-to-basket-container button {
   border: none;
+  border-radius: 0.5rem;
   padding: 1.5rem 3rem;
   width: 100%;
   color: #fff;
@@ -736,6 +738,11 @@ main {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+@media only screen and (min-width: 1600px) {
+  .ad-container {
+    width: 2000px;
+  }
+}
 .ad-container .ad-item {
   position: relative;
   flex: 1 1 100%;
@@ -830,6 +837,11 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+@media only screen and (min-width: 1600px) {
+  .footer-container {
+    width: 2000px;
+  }
 }
 .footer-container .footer-item {
   flex: 1 1 100%;
@@ -1010,4 +1022,221 @@ main {
   #banner .banner-overlay {
     font-size: 72px;
   }
+}
+
+.registration-container {
+  width: 1600px;
+  max-width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  display: block;
+  padding: 3rem 0;
+}
+@media only screen and (min-width: 1600px) {
+  .registration-container {
+    width: 2000px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .registration-container {
+    width: 1600px;
+  }
+}
+.registration-container .registration-item {
+  padding: 1rem;
+}
+.registration-container h2 {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-size: 28px;
+  margin: 1.5rem 0;
+}
+
+@media only screen and (min-width: 992px) {
+  #registerForm {
+    display: flex;
+    gap: 3rem;
+  }
+  #registerForm #userInfo,
+  #registerForm #addressInfo {
+    flex: 1 1 calc(50% - 3rem);
+  }
+}
+
+.registration-form-field {
+  position: relative;
+}
+.registration-form-field .field-label {
+  position: absolute;
+  font-size: 14px;
+  color: #000;
+  top: 18px;
+  left: 0.5rem;
+  z-index: -1;
+  transition: ease 0.25s all;
+}
+.registration-form-field input {
+  width: 100%;
+  height: 52px;
+  border: none;
+  background: rgba(230, 230, 230, 0.5);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.registration-form-field input:focus, .registration-form-field input:focus-visible {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: #d5d5d5;
+}
+.registration-form-field input:valid + .field-label, .registration-form-field input:focus + .field-label, .registration-form-field input:focus-visible + .field-label {
+  position: absolute;
+  top: -7px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 0 0.5rem;
+  font-size: 10px;
+  border-radius: 0.5rem;
+  z-index: 1;
+}
+
+@media only screen and (min-width: 576px) {
+  #registerForm #kundennameContainer,
+  #registerForm #passwortContainer {
+    display: flex;
+    gap: 0.5rem;
+  }
+  #registerForm #kundennameContainer .registration-form-field,
+  #registerForm #passwortContainer .registration-form-field {
+    flex: 1 1 calc(50% - 0.25rem);
+  }
+  #registerForm #strassennameContainer {
+    display: flex;
+    gap: 0.5rem;
+  }
+  #registerForm #strassennameContainer .registration-form-field:first-of-type {
+    flex: 1 1 75%;
+  }
+  #registerForm #plzContainer {
+    display: flex;
+    gap: 0.5rem;
+  }
+  #registerForm #plzContainer .registration-form-field:last-of-type {
+    flex: 1 1 calc(75% - 0.25rem);
+  }
+}
+
+#registerButton {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1.5rem 3rem;
+  margin-top: 3rem;
+  width: 100%;
+  color: #fff;
+  letter-spacing: 1px;
+  background-image: linear-gradient(90deg, #188781 50%, #000 50%);
+  background-size: 200%;
+  background-position: right;
+  transition: ease 0.35s all;
+  cursor: pointer;
+}
+#registerButton:hover {
+  background-position: left;
+}
+
+#registration-header {
+  background: #eee;
+}
+#registration-header .container {
+  width: 1600px;
+  max-width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 30vh;
+}
+@media only screen and (min-width: 1600px) {
+  #registration-header .container {
+    width: 2000px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #registration-header .container {
+    padding: 3rem 1rem;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  #registration-header .container {
+    width: 1600px;
+  }
+}
+#registration-header .container .registration-benefits-container {
+  flex: 1 1 100%;
+  letter-spacing: 0;
+  text-align: center;
+}
+@media only screen and (min-width: 992px) {
+  #registration-header .container .registration-benefits-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #registration-header .container .registration-benefits-container .reg-ben-item {
+    flex: 1 1 calc(50% - 3rem);
+  }
+}
+#registration-header .container h1 {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+@media only screen and (min-width: 768px) {
+  #registration-header .container h1 {
+    font-size: 54px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #registration-header .container h1 {
+    margin: 0 0 1rem 0;
+  }
+}
+
+.already-registered-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+.already-registered-container .reg-ben-item:last-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: #e1e1e1;
+}
+.already-registered-container p {
+  color: #960000;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+.already-registered-container a {
+  transition: ease 0.25s all;
+  font-weight: 600;
+  color: #666;
+}
+.already-registered-container a:hover {
+  color: #000;
 }/*# sourceMappingURL=style.css.map */

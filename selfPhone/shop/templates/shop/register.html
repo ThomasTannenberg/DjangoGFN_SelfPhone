@@ -1,71 +1,107 @@
-<!DOCTYPE html>
-<html lang="de">
-
-<head>
+{% extends 'shop/base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'slickslider/slick.css' %}">
-<link rel="stylesheet" href="{% static 'slickslider/slick-theme.css' %}">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
 
+{% block content %}
 
-<body>
-<h1>Registrieren</h1>
-<div>
-    <form id="registerForm" method="POST" action="">
-
-        {% csrf_token %}
-
-        <div id="userInfo">
-            <h2>Benutzerinformation:</h2>
-            <div id="benutzernameContainer">
-                <div class="field-label">{{ user_form.username.label }}</div>
-                {{ user_form.username }}
+<div id="registration-header" class="container-full">
+    <div class="container">
+        <div class="registration-benefits-container registration-item">
+            <div class="reg-ben-item">
+                <h1>Registrieren</h1>
+                <p>Erstelle dir jetzt deinen ganz persönlichen Kundenaccount und profitiere von vielen Vorteilen!</p>
             </div>
-            <div id="kundennameContainer">
-                <div class="field-label">{{ user_form.first_name.label }}</div>
-                {{ user_form.first_name }}
-                <div class="field-label">{{ user_form.last_name.label }}</div>
-                {{ user_form.last_name }}
-            </div>
-            <div id="emailContainer">
-                <div class="field-label">{{ user_form.email.label }}</div>
-                {{ user_form.email }}
-            </div>
-            <div id="passwortContainer">
-                <div class="field-label">{{ user_form.password1.label }}</div>
-                {{ user_form.password1 }}
-                <div class="field-label">{{ user_form.password2.label }}</div>
-                {{ user_form.password2 }}
+
+            <div class="reg-ben-item">    
+                <div class="already-registered-container">
+                    <img src="{% static 'images/icons/icon-heart-50.png' %}">
+                    <p>Bereits Kunde?</p>
+                    <a href="{% url 'shop' %}">Zurück zum Shop</a>
+                </div>
             </div>
         </div>
-
-        <div id="addressInfo">
-            <h2>Adresse:</h2>
-            <div id="plzContainer">
-                <div class="field-label">{{ address_form.city.label }}</div>
-                {{ address_form.city }}
-                <div class="field-label">{{ address_form.postcode.label }}</div>
-                {{ address_form.postcode }}
-            </div>
-            <div id="strassennameContainer">
-                <div class="field-label">{{ address_form.street.label }}</div>
-                {{ address_form.street }}
-                <div class="field-label">{{ address_form.house_number.label }}</div>
-                {{ address_form.house_number }}
-            </div>
-            <button id="registerButton" type="submit">Registrieren</button>
-        </div>
-    </form>
-    <div>
-        <p>Bereits Kunde?<a href="{% url 'shop' %}">Zurück zum Shop</a></p>
     </div>
 </div>
 
-<script src="{% static 'slickslider/jquery-1.11.0.min.js' %}"></script>
-<script src="{% static 'slickslider/jquery-migrate-1.2.1.min.js' %}"></script>
-<script src="{% static 'slickslider/slick.min.js' %}"></script>    
-<script src="{% static 'js/image-slider.js' %}"></script>
-<script src="{% static 'js/header.js' %}"></script>
-<script src="{% static 'js/brand-slider.js' %}"></script>
-</body>
+<div class="container-full">
+    <div class="container">
+
+        <div class="registration-container">
+            <div class="registration-form-container registration-item">
+                <form id="registerForm" method="POST" action="">
+                    {% csrf_token %}
+
+                    <div id="userInfo">
+                        <h2>Account</h2>
+                        <div id="benutzernameContainer" class="form-block">
+                            <div class="registration-form-field">
+                                {{ user_form.username }}
+                                <div class="field-label">{{ user_form.username.label }}</div>
+                            </div>
+                        </div>
+
+                        <div id="kundennameContainer" class="form-block">
+                            <div class="registration-form-field">
+                                {{ user_form.first_name }}
+                                <div class="field-label">{{ user_form.first_name.label }}</div>                                
+                            </div>
+                            <div class="registration-form-field">
+                                {{ user_form.last_name }}
+                                <div class="field-label">{{ user_form.last_name.label }}</div>                                
+                            </div>
+                        </div>
+
+                        <div id="emailContainer" class="form-block">
+                            <div class="registration-form-field">
+                                {{ user_form.email }}
+                                <div class="field-label">{{ user_form.email.label }}</div>                                
+                            </div>
+                        </div>
+
+                        <div id="passwortContainer" class="form-block">
+                            <div class="registration-form-field">
+                                {{ user_form.password1 }}
+                                <div class="field-label">{{ user_form.password1.label }}</div>                                
+                            </div>
+                            <div class="registration-form-field">
+                                {{ user_form.password2 }}
+                                <div class="field-label">{{ user_form.password2.label }}</div>                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="addressInfo">
+                        <h2>Adresse</h2>
+                        <div id="strassennameContainer" class="form-block">
+                            <div class="registration-form-field">
+                                {{ address_form.street }}
+                                <div class="field-label">{{ address_form.street.label }}</div>                                
+                            </div>
+                            <div class="registration-form-field">
+                                {{ address_form.house_number }}
+                                <div class="field-label">{{ address_form.house_number.label }}</div>                                
+                            </div>
+                        </div>
+
+                        <div id="plzContainer" class="form-block">
+                            <div class="registration-form-field">
+                                {{ address_form.postcode }}
+                                <div class="field-label">{{ address_form.postcode.label }}</div>                                
+                            </div>
+                            <div class="registration-form-field">
+                                {{ address_form.city }}
+                                <div class="field-label">{{ address_form.city.label }}</div>                                
+                            </div>
+                        </div>
+
+                        <div class="registration-form-submit">
+                            <button id="registerButton" type="submit">Registrieren</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

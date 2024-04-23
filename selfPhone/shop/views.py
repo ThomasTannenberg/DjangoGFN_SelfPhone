@@ -34,17 +34,14 @@ def huawei(request):
     return redirect('product_gallery', manufacturer='Huawei')
 
 
-# Die Ansicht für die Produktgalerie
 def xiaomi(request):
     return redirect('product_gallery', manufacturer='Xiaomi')
 
 
-# Die Ansicht für die Produktgalerie
 def sony(request):
     return redirect('product_gallery', manufacturer='Sony')
 
 
-# Die Ansicht für die Produktgalerie
 def google(request):
     return redirect('product_gallery', manufacturer='Google')
 

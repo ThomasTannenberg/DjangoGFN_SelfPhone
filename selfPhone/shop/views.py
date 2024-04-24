@@ -137,6 +137,58 @@ def basket(request):
     return render(request, 'shop/basket.html')
 
 
+def update_basket(request, item_id):
+    # Annahme: Die neue Menge wird als GET-Parameter übergeben
+    new_quantity = request.GET.get('quantity', 1)
+    try:
+        cart_item = get_object_or_404(CartItem, id=item_id)
+        if int(new_quantity) > 0:
+            cart_item.quantity = int(new_quantity)
+            cart_item.save()
+            messages.success(request, "Warenkorb erfolgreich aktualisiert.")
+        else:
+            cart_item.delete()  # Lösche Eintrag, wenn Menge 0 oder weniger
+            messages.success(request, "Produkt aus dem Warenkorb entfernt.")
+    except Exception as e:
+        messages.error(request, f"Ein Fehler ist aufgetreten: {str(e)}")
+
+    return redirect('basket')
+
+
+def remove_from_basket(request, item_id):
+    try:
+        cart_item = get_object_or_404(CartItem, id=item_id)
+        cart_item.delete()
+        messages.success(
+            request, "Produkt erfolgreich aus dem Warenkorb entfernt.")
+    except Exception as e:
+        messages.error(request, f"Ein Fehler ist aufgetreten: {str(e)}")
+
+    return redirect('basket')
+
+
+def add_to_basket(request):
+    product_id = request.POST.get('product_id')
+    quantity = request.POST.get('quantity', 1)
+
+    if request.method == "POST":
+        product = get_object_or_404(Smartphone, id=product_id)
+        # Hier fügst du Logik hinzu, um den Warenkorb zu aktualisieren oder zu erstellen
+        cart_item, created = CartItem.objects.get_or_create(
+            product=product,
+            defaults={'quantity': quantity}
+        )
+        if not created:
+            cart_item.quantity += int(quantity)
+            cart_item.save()
+
+        messages.success(
+            request, "Produkt erfolgreich zum Warenkorb hinzugefügt.")
+        return redirect('product_details', smartphone_id=product_id)
+
+    return redirect('home')
+
+
 @ login_required
 def checkout(request):
     try:

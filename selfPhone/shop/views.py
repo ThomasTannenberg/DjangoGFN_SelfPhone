@@ -18,7 +18,7 @@ import random
 
 COLOR_MAP = {
     'Schwarz': '#000000',
-    'Weiß': '#FFFFFF',
+    'Weiß': '#f1f1f1',
     'Rot': '#FF0000',
     'Blau': '#0000FF',
     'Grün': '#00FF00',

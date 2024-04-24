@@ -10,14 +10,6 @@ urlpatterns = [
     path('product_details/<int:smartphone_id>/', views.product_details,
          name='product_details'),
 
-    path('update_basket/<int:item_id>/',
-         views.update_basket, name='update_basket'),
-
-    path('remove_from_basket/<int:item_id>/',
-         views.remove_from_basket, name='remove_from_basket'),
-
-    path('add_to_basket/', views.add_to_basket, name='add_to_basket'),
-
     path('basket/', views.basket, name='basket'),
 
     path('checkout/', views.checkout, name='checkout'),

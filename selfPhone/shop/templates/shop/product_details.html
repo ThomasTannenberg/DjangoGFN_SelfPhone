@@ -103,7 +103,7 @@
 
                     <!-- Add to Basket Form -->
                 <div class="add-to-basket-container">
-                    <form action="{% url 'add_to_basket' %}" method="POST">
+                    <form action="" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="product_id" value="{{ smartphone.id }}">
                         

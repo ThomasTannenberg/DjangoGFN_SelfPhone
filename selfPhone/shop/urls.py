@@ -4,8 +4,6 @@ from . import views
 urlpatterns = [
     path('', views.shop, name='shop'),
 
-
-
     path('product_gallery/<str:manufacturer>/',
          views.product_gallery, name='product_gallery'),
 
@@ -33,7 +31,5 @@ urlpatterns = [
     path('sony/', views.sony, name='sony'),
 
     path('google/', views.google, name='google'),
-
-    path('shopBackend/', views.shopBackend, name='shopBackend'),
 
 ]

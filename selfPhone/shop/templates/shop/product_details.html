@@ -1,4 +1,3 @@
-
 {% extends 'shop/base.html' %}
 {% load static %}
 
@@ -6,7 +5,6 @@
 <div class="container-full">
     <div class="container">
         <div class="container-product-details">
-
             <!-- PRODUCT IMAGES -->
             <div id="image-slider" class="container-product-image">
                 {% if smartphone.pictureFront and smartphone.pictureBack and smartphone.pictureSide and smartphone.pictureDetail %}
@@ -30,7 +28,6 @@
             <!-- PRODUCT INFORMATION -->
             <div class="container-product-information">
                 <div class="container-product-information-inner">
-
                     <div class="product-informations">
                         <div class="product-header">
                             <div class="product-header-name">
@@ -58,63 +55,48 @@
                         </div>
                     </div>
                     
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        <div class="product-variation-container">
-                            <!-- Color Variations -->
-                            <div class="variation-container">
-                                <h6 class="variation-headline">Farbe wählen:</h6>
-                                <div class="variation-selection">
-                                    {% for variation in color_variations %}
-                                    <div class="variation">
-                                        <input type="radio" id="color{{ variation.id }}" name="color" value="{{ variation.id }}" onchange="updateProductVariation({{ variation.id }}, 'color')">
-                                        <label for="color{{ variation.id }}">
-                                            <div class="var color" data-color-name="{{ variation.color }}"></div>
-                                        </label>
+                    <!-- PRODUCT VARIATIONS -->
+                    <div class="product-variation-container">
+                        <!-- Color Variations -->
+                        <div class="variation-container">
+                            <h6 class="variation-headline">Farbe wählen:</h6>
+                            <div class="variation-selection">
+                                {% for variation in color_variations %}
+                                <a href="{% url 'product_details' variation.id %}" class="variation-link">
+                                    <div class="var color" style="background-color: {{ variation.color_code }};">
+                                        {{ variation.color }}
                                     </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <!-- Storage Variations -->
-                            <div class="variation-container">
-                                <h6 class="variation-headline">Speicherplatz wählen:</h6>
-                                <div class="variation-selection">
-                                    {% for variation in storage_variations %}
-                                    <div class="variation">
-                                        <input type="radio" id="storage{{ variation.id }}" name="storage" value="{{ variation.id }}" onchange="updateProductVariation({{ variation.id }}, 'storage')">
-                                        <label for="storage{{ variation.id }}">
-                                            <div class="var square">{{ variation.storage_size }}</div>
-                                        </label>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <!-- Memory Variations -->
-                            <div class="variation-container">
-                                <h6 class="variation-headline">Arbeitsspeicher wählen:</h6>
-                                <div class="variation-selection">
-                                    {% for variation in memory_variations %}
-                                    <div class="variation">
-                                        <input type="radio" id="memory{{ variation.id }}" name="memory" value="{{ variation.id }}" onchange="updateProductVariation({{ variation.id }}, 'memory')">
-                                        <label for="memory{{ variation.id }}">
-                                            <div class="var square">{{ variation.memory_size }}</div>
-                                        </label>
-                                    </div>
-                                    {% endfor %}
-                                </div>
+                                </a>
+                                {% endfor %}
                             </div>
                         </div>
-                        <div class="add-to-basket-container">
-                            <select id="menge" name="menge">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <button type="submit" class="add-to-basket">In den Warenkorb</button>
+                        <!-- Storage Variations -->
+                        <div class="variation-container">
+                            <h6 class="variation-headline">Speicherplatz wählen:</h6>
+                            <div class="variation-selection">
+                                {% for variation in storage_variations %}
+                                <a href="{% url 'product_details' variation.id %}" class="variation-link">
+                                    <div class="var square">
+                                        {{ variation.storage_size }} GB
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </form>
+                        <!-- Memory Variations -->
+                        <div class="variation-container">
+                            <h6 class="variation-headline">Arbeitsspeicher wählen:</h6>
+                            <div class="variation-selection">
+                                {% for variation in memory_variations %}
+                                <a href="{% url 'product_details' variation.id %}" class="variation-link">
+                                    <div class="var square">
+                                        {{ variation.memory_size }} GB
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="description-container">
                         <h6>Beschreibung</h6>
@@ -131,41 +113,12 @@
                             <div class="detail"><span>Farbe: {{ smartphone.color }}</span></div>
                             <div class="detail"><span>Speicherplatz: {{ smartphone.storage_size }}</span></div>
                             <div class="detail"><span>Prozessor: {{ smartphone.prozessortyp }}</span></div>
-                            <div class="detail"><span>Displaygröße: {{ smartphone.display }}</span></div>
+                            <div the="detail"><span>Displaygröße: {{ smartphone.display }}</span></div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const colorElements = document.querySelectorAll('.var.color');
-        const colorMap = {
-            'Schwarz': '#000000',
-            'Weiß': '#f1f1f1',
-            'Rot': '#FF0000',
-            'Blau': '#0000FF',
-            'Grün': '#00FF00',
-            'Gelb': '#FFFF00',
-            'Grau': '#808080',
-            'Silber': '#C0C0C0',
-            'Gold': '#FFD700',
-
-        };
-    
-        colorElements.forEach(el => {
-            const colorName = el.getAttribute('data-color-name');
-            const hexValue = colorMap[colorName] || '#000000'; 
-            el.style.background = hexValue;
-        });
-    });
-    </script>
-
 {% endblock content %}

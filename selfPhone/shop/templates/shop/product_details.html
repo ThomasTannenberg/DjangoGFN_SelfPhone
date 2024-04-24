@@ -8,6 +8,7 @@
 
             <!-- PRODUCT IMAGES -->
             <div id="image-slider" class="container-product-image">
+                {% if smartphone.pictureFront and smartphone.pictureBack and smartphone.pictureSide and smartphone.pictureDetail %}
                 <div class="cpi-image">
                     <img src="{{ smartphone.pictureFront.url }}" alt="{{ smartphone.model }} Front">
                 </div>
@@ -20,6 +21,9 @@
                 <div class="cpi-image">
                     <img src="{{ smartphone.pictureDetail.url }}" alt="{{ smartphone.model }} Detail">
                 </div>
+                {% else %}
+                <p>No images available for this product.</p>
+                {% endif %}
             </div>
 
             <!-- PRODUCT INFORMATION -->

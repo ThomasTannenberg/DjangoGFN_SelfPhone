@@ -16,9 +16,14 @@
             {% for smartphone in smartphones %}
             <div class="gallery-item">
                 <div class="gallery-item-image">
+                    {% if smartphone.pictureFront %}
                     <a href="{% url 'product_details' smartphone.id %}" title="{{ smartphone.model }}">
                         <img src="{{ smartphone.pictureFront.url }}" alt="{{ smartphone.model }}"> 
                     </a>
+                    {% else %}
+                    <a href="{% url 'product_details' smartphone.id %}" title="{{ smartphone.model }}">
+                    <p>No image available for this product.</p>
+                    {% endif %}
                 </div>
                 <div class="gallery-item-content">
                     <div class="gallery-item-name">

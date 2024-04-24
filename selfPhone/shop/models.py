@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
+import random
+import string
 # Enums für die Auswahl der Eigenschaften eines Smartphones
 
 
@@ -77,10 +79,10 @@ class Smartphone(models.Model):
     akku = models.IntegerField()
     basic_price = models.FloatField(null=True, blank=True, default=0.0)
     description = models.TextField(max_length=500)
-    pictureFront = models.ImageField(null=True, blank=True)
-    pictureBack = models.ImageField(null=True, blank=True)
-    pictureSide = models.ImageField(null=True, blank=True)
-    pictureDetail = models.ImageField(null=True, blank=True)
+    pictureFront = models.ImageField(null=True, blank=True, max_length=255)
+    pictureBack = models.ImageField(null=True, blank=True, max_length=255)
+    pictureSide = models.ImageField(null=True, blank=True, max_length=255)
+    pictureDetail = models.ImageField(null=True, blank=True, max_length=255)
 
     def update_price_based_on_specs(self):
         price_adjustments = {
@@ -114,14 +116,21 @@ class Smartphone(models.Model):
                 original_filename, extension = os.path.splitext(
                     original_file.name)
 
-                safe_original_filename = original_filename
-                new_filename = f"{safe_original_filename}{suffix}{extension}"
+                # Generate a random string of length 6 for filename variation
+                random_str = ''.join(random.choices(
+                    string.ascii_letters + string.digits, k=6))
+
+                # Construct the new filename with the random string included
+                new_filename = f"{original_filename}_{random_str}_{suffix}{extension}"
 
                 new_file_path = os.path.join(
                     os.path.dirname(original_file.path), new_filename)
 
+                # Save the new image file without changing the existing file
                 original_file.save(
                     new_file_path, original_file.file, save=False)
+
+                # Update the image field to the new filename
                 setattr(self, image_field, new_filename)
 
         save_image('pictureFront', 'Front')

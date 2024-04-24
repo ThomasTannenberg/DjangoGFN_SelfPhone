@@ -18,6 +18,8 @@ urlpatterns = [
 
     path('add_to_basket/', views.add_to_basket, name='add_to_basket'),
 
+    path('basket/', views.basket, name='basket'),
+
     path('checkout/', views.checkout, name='checkout'),
 
     path('login/', views.login_user, name='login'),

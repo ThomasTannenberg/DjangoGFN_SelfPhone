@@ -1,4 +1,6 @@
 
+from .models import Smartphone
+from django.shortcuts import render
 from .models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -50,29 +52,34 @@ def google(request):
 
 
 def product_gallery(request, manufacturer):
-
+    # Smartphones nach Hersteller filtern und nach Modell und ID sortieren
     smartphones = Smartphone.objects.filter(
         manufacturer=manufacturer).order_by('model', 'id')
 
     representatives = {}
+    model_color_groups = {}
 
-    model_groups = {}
+    # Smartphones nach Modell und Farbe gruppieren
     for phone in smartphones:
-        if phone.model not in model_groups:
-            model_groups[phone.model] = []
-        model_groups[phone.model].append(phone)
+        model_color_key = (phone.model, phone.color)
+        if model_color_key not in model_color_groups:
+            model_color_groups[model_color_key] = []
+        model_color_groups[model_color_key].append(phone)
 
-    for model, phones in model_groups.items():
+    # Repräsentatives Smartphone für jede Modell- und Farbkombination wählen
+    for model_color, phones in model_color_groups.items():
         representative = random.choice(phones)
-        representatives[model] = representative.id
+        representatives[model_color] = representative.id
 
+    # Bestimmen, ob ein Smartphone der Repräsentant seiner Modell- und Farbkombination ist
     for phone in smartphones:
-        phone.is_representative = (phone.id == representatives[phone.model])
+        phone.is_representative = (
+            phone.id == representatives[(phone.model, phone.color)])
 
     return render(request, 'shop/product_gallery.html', {
         'smartphones': smartphones,
         'manufacturer': manufacturer,
-        'representatives': representatives.values()  # Nur die IDs
+        'representatives': list(representatives.values())
     })
 
 
@@ -95,10 +102,8 @@ def product_details(request, smartphone_id):
     ).exclude(pk=smartphone.pk).values('memory_size', 'id')
 
     color_variations = {v['color']: v for v in color_variations}.values()
-    storage_variations = {v['storage_size']
-        : v for v in storage_variations}.values()
-    memory_variations = {v['memory_size']
-        : v for v in memory_variations}.values()
+    storage_variations = {v['storage_size']: v for v in storage_variations}.values()
+    memory_variations = {v['memory_size']: v for v in memory_variations}.values()
 
     return render(request, 'shop/product_details.html', {
         'smartphone': smartphone,
@@ -112,7 +117,7 @@ def basket(request):
     return render(request, 'shop/basket.html')
 
 
-@login_required
+@ login_required
 def checkout(request):
     try:
         customer = Costumer.objects.get(customer=request.user)
@@ -208,7 +213,7 @@ def register_user(request):
     return render(request, 'shop/register.html', {'seite': seite, 'user_form': user_form, 'address_form': address_form})
 
 
-@require_POST  # Stellt sicher, dass diese View nur POST-Anfragen akzeptiert
+@ require_POST  # Stellt sicher, dass diese View nur POST-Anfragen akzeptiert
 def shopBackend(request):
     try:
         data = json.loads(request.body)

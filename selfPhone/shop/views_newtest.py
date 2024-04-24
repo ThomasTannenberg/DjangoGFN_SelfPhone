@@ -1,4 +1,3 @@
-
 from .models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -11,8 +10,6 @@ from django.views.decorators.http import require_POST
 from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from django.db.models import Min
-import random
 
 # Create your views here.
 
@@ -50,29 +47,18 @@ def google(request):
 
 
 def product_gallery(request, manufacturer):
+    smartphones_list = Smartphone.objects.filter(manufacturer=manufacturer)
+    grouped_smartphones = {}
 
-    smartphones = Smartphone.objects.filter(
-        manufacturer=manufacturer).order_by('model', 'id')
-
-    representatives = {}
-
-    model_groups = {}
-    for phone in smartphones:
-        if phone.model not in model_groups:
-            model_groups[phone.model] = []
-        model_groups[phone.model].append(phone)
-
-    for model, phones in model_groups.items():
-        representative = random.choice(phones)
-        representatives[model] = representative.id
-
-    for phone in smartphones:
-        phone.is_representative = (phone.id == representatives[phone.model])
+    for phone in smartphones_list:
+        key = (phone.model, phone.memory_size, phone.storage_size)
+        if key not in grouped_smartphones:
+            grouped_smartphones[key] = []
+        grouped_smartphones[key].append(phone)
 
     return render(request, 'shop/product_gallery.html', {
-        'smartphones': smartphones,
-        'manufacturer': manufacturer,
-        'representatives': representatives.values()  # Nur die IDs
+        'grouped_smartphones': grouped_smartphones,
+        'manufacturer': manufacturer
     })
 
 
@@ -146,32 +132,32 @@ def test(request):
 
 def login_user(request):
     seite = 'login'
+    messages.success(request, "methode geladen.")
     if request.method == 'POST':
-        if 'logout' in request.POST:  # Check for logout action
-            logout(request)
-            messages.success(request, "Erfolgreich ausgeloggt.")
-            return redirect('login')
+        benutzername = request.POST['benutzername']
+        passwort = request.POST['passwort']
 
-        benutzername = request.POST.get('benutzername')
-        passwort = request.POST.get('passwort')
+        messages.success(request, "POST WAR ERFOLGREICH.")
 
-        if benutzername and passwort:
-            benutzer = authenticate(
-                request, username=benutzername, password=passwort)
-            if benutzer is not None:
-                login(request, benutzer)
-                messages.success(request, "Erfolgreich eingeloggt.")
-                return redirect('shop')
-            else:
-                messages.error(
-                    request, "Benutzername oder Passwort nicht korrekt.")
-                return render(request, 'shop/login.html', {'seite': seite})
+        benutzer = authenticate(
+            request, username=benutzername, password=passwort)
+
+        if benutzer is not None:
+            login(request, benutzer)
+            # server message
+            messages.success(request, "Erfolgreich eingeloggt.")
+            return redirect('shop')
         else:
             messages.error(
-                request, "Bitte Benutzername und Passwort eingeben.")
-            return render(request, 'shop/login.html', {'seite': seite})
+                request, "Benutzername oder Passwort nicht korrekt.")
 
     return render(request, 'shop/login.html', {'seite': seite})
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, "Erfolgreich ausgeloggt.")
+    return render(request, 'shop/logout.html')
 
 
 def register_user(request):

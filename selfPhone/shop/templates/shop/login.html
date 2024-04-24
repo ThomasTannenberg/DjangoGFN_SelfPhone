@@ -1,21 +1,27 @@
-
-
+{% if user.is_authenticated %}
 <div>
-    <form id="loginForm" method="POST" action="">
+    <form method="POST" action="">
         {% csrf_token %}
-            <div>
-              <label for="InputEmail">Benutzername</label>
-              <input type="text" name="benutzername"  id="InputEmail">
-            </div>
-            <div>
-              <label for="InputPassword">Passwort</label>
-              <input type="password" name="passwort" id="InputPassword">
-            </div>
-            <button type="submit">Login</button>
-            <div>
-              <p>Noch kein Kunde?<a href={% url 'register' %}>Registrieren</a></p>
-            </div>
+        <input type="hidden" name="logout" value="1"/>
+        <button id="logoutButton" type="submit">Logout</button>
     </form>
 </div>
-
-
+{% else %}
+    <div>
+        <form id="loginForm" method="POST" action="">
+            {% csrf_token %}
+                <div>
+                <label for="InputEmail">Benutzername</label>
+                <input type="text" name="benutzername"  id="InputEmail">
+                </div>
+                <div>
+                <label for="InputPassword">Passwort</label>
+                <input type="password" name="passwort" id="InputPassword">
+                </div>
+                <button type="submit">Login</button>
+                <div>
+                <p>Noch kein Kunde?<a href={% url 'register' %}>Registrieren</a></p>
+                </div>
+        </form>
+    </div>
+{% endif %}

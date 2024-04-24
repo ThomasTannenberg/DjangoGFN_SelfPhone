@@ -3,7 +3,6 @@
 
 {% block content %}
 
-
 <div id="banner" data-brand="{{ manufacturer }}" class="container-full">
     <div class="banner-overlay">
         <div class="banner-headline">{{ manufacturer }}</div>
@@ -14,7 +13,7 @@
     <div class="container">
         <div class="gallery-container">
             {% for smartphone in smartphones %}
-            <div class="gallery-item">
+            <div class="gallery-item" style="display: {% if smartphone.is_representative %}block{% else %}none{% endif %};">
                 <div class="gallery-item-image">
                     {% if smartphone.pictureFront %}
                     <a href="{% url 'product_details' smartphone.id %}" title="{{ smartphone.model }}">
@@ -22,7 +21,8 @@
                     </a>
                     {% else %}
                     <a href="{% url 'product_details' smartphone.id %}" title="{{ smartphone.model }}">
-                    <p>No image available for this product.</p>
+                        <p>No image available for this product.</p>
+                    </a>
                     {% endif %}
                 </div>
                 <div class="gallery-item-content">
@@ -30,10 +30,9 @@
                         <span class="brand">{{ smartphone.manufacturer }}</span>
                         <span class="model">{{ smartphone.model }}</span>
                         <div class="color">{{ smartphone.color }}</div>
-                        <div class="color">{{ smartphone.memory_size }}gb memory</div>
-                        <div class="color">{{ smartphone.storage_size }}gb storage</div>
+
                     </div>
-                    <div class="price">{{ smartphone.basic_price }} €</div>
+                    <div class="price">{{ smartphone.basic_price }}0 €</div> 
                 </div>
             </div>
             {% empty %}
@@ -44,5 +43,13 @@
 </div>
 
 <p>Hersteller: {{ manufacturer }}</p>
+
+<script>
+function toggleVisibility(model) {
+    document.querySelectorAll(`div.gallery-item:not([data-rep='${model}'])`).forEach(el => {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    });
+}
+</script>
 
 {% endblock content %}

@@ -114,7 +114,8 @@ def product_details(request, smartphone_id):
 
     # Entfernt Duplikate da SQLite kein distinct kennt
     color_variations = {v['color']: v for v in color_results}.values()
-    storage_variations = {v['storage_size']                          : v for v in storage_results}.values()
+    storage_variations = {v['storage_size']
+        : v for v in storage_results}.values()
     memory_variations = {v['memory_size']: v for v in memory_results}.values()
 
     # Anpassen der Farbcodes mit COLOR_MAP, von ganz oben
@@ -133,7 +134,46 @@ def product_details(request, smartphone_id):
 
 
 def basket(request):
-    return render(request, 'shop/basket.html')
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 1))
+        if product_id is not None:
+            smartphone = get_object_or_404(Smartphone, pk=product_id)
+            product, created = Product.objects.get_or_create(
+                smartphone=smartphone)
+
+            cart_item, created = CartItem.objects.get_or_create(
+                product=product,
+                defaults={'quantity': quantity}
+            )
+            if not created:
+                cart_item.quantity += quantity
+                cart_item.save()
+            # Leiten Sie nach dem Hinzufügen zum Warenkorb zur Warenkorb-Seite oder einer Bestätigungsseite weiter
+            return redirect('basket')
+
+    # Anzeigen des aktuellen Warenkorbinhalts für den Benutzer
+    # Filtern nach Benutzer, wenn Benutzeranmeldung implementiert ist
+    cart_items = CartItem.objects.filter(is_ordered=False)
+    total_price = sum(item.get_total_price for item in cart_items)
+    return render(request, 'shop/basket.html', {'cart_items': cart_items, 'total_price': total_price})
+
+
+@require_POST
+def update_quantity(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    quantity = request.POST.get('quantity')
+    if quantity and quantity.isdigit():
+        cart_item.quantity = int(quantity)
+        cart_item.save()
+    return redirect('basket')
+
+
+@require_POST
+def remove_from_basket(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return redirect('basket')
 
 
 @ login_required

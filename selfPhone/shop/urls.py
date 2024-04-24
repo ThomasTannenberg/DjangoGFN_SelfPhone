@@ -32,4 +32,9 @@ urlpatterns = [
 
     path('google/', views.google, name='google'),
 
+    path('update_quantity/<int:item_id>/',
+         views.update_quantity, name='update_quantity'),
+    path('remove_from_basket/<int:item_id>/',
+         views.remove_from_basket, name='remove_from_basket'),
+
 ]

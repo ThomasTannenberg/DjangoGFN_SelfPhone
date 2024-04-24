@@ -103,10 +103,9 @@
 
                     <!-- Add to Basket Form -->
                 <div class="add-to-basket-container">
-                    <form action="" method="POST">
+                    <form action="{% url 'basket' %}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="product_id" value="{{ smartphone.id }}">
-                        
                         <label for="quantity">Menge:</label>
                         <select id="quantity" name="quantity">
                             <option value="1">1</option>
@@ -115,9 +114,9 @@
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                        
                         <button type="submit" class="add-to-basket">In den Warenkorb</button>
                     </form>
+                    
                 </div>
 
                     <div class="details-container">

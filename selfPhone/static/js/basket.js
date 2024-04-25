@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     let isBasketLoaded = false;
 
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     sliderBasket.innerHTML = data;
                     isBasketLoaded = true;
+
                 })
                 .catch(error => {
                     console.error("Fehler beim Laden des Warenkorbs:", error);

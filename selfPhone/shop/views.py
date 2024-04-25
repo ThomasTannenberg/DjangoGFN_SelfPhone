@@ -7,12 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from . forms import EigeneUserCreationForm, AddressForm
-import json
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.db.models import F
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.decorators import login_required
 import random
 
 # Create your views here.
@@ -135,7 +130,6 @@ def product_details(request, smartphone_id):
 
 
 def basket(request):
-    seite = 'basket'
     if not request.user.is_authenticated:
         # Redirect to login if the user is not authenticated
         return redirect('login')

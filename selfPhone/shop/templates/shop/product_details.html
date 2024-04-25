@@ -151,6 +151,12 @@
         var xhr = new XMLHttpRequest();
         xhr.open('POST', "{% url 'basket' %}", true);
         xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // warenkorb laden, nachdem die daten gesendet worden sind
+                window.location.reload();
+            }
+        };
         xhr.send(formData);
     });
 </script>

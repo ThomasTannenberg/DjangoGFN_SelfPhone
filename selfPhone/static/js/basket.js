@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const sliderBasket = document.querySelector(".basket-slider");
-    const iconBasket = document.querySelector('#icon-basket');
+
     let isBasketLoaded = false;
 
     function loadBasket() {
@@ -17,10 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    if (iconBasket && sliderBasket) {
-        iconBasket.addEventListener('click', function() {
-            open(iconBasket, sliderBasket);
-            loadBasket();
-        });
-    }
+    loadBasket();
+
 });

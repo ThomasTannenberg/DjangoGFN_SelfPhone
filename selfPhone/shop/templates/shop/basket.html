@@ -1,48 +1,105 @@
-{% if user.is_authenticated %}
-<div class="basket-container">
-    <h2>Ihr Warenkorb</h2>
-    {% if cart_items %}
-        <table class="basket-table">
-            <thead>
-                <tr>
-                    <th>Produkt</th>
-                    <th>Menge</th>
-                    <th>Preis pro Einheit</th>
-                    <th>Gesamtpreis</th>
-                    <th>Aktion</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                    <tr>
-                        <td>{{ item.product.name }}</td>
-                        <td>
-                            <form method="POST" action="{% url 'update_quantity' item.id %}">
-                                {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 50px;">
-                                <button type="submit" class="update-button">Aktualisieren</button>
-                            </form>
-                        </td>
-                        <td>{{ item.product.smartphone.basic_price|floatformat:2 }} €</td>
-                        <td>{{ item.get_total_price|floatformat:2 }} €</td>
-                        <td>
-                            <form method="POST" action="{% url 'remove_from_basket' item.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="remove-button">Entfernen</button>
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="total-price">
-            <strong>Gesamtpreis aller Produkte:</strong> {{ total_price|floatformat:2 }} €
-        </div>
+{% load static %}
+
+<div class="basket-container">    
+    <h4>Warenkorb</h4>
+
+    {% if user.is_authenticated %}
+        {% if cart_items %}
+            {% for item in cart_items %}
+                <div class="basket-item">
+                    <div class="basket-item-image">
+                        <img src="{{ item.product.smartphone.pictureFront.url }}" alt="{{ item.product.smartphone.model }}">
+                    </div>
+
+                    <div class="basket-item-content">
+                        <div class="basket-item-header">
+                            <div class="basket-item-left">
+                                <p class="basket-item-name">{{ item.product.name }}</p>
+                                <p class="basket-item-per-piece">{{ item.product.smartphone.basic_price|floatformat:2 }} € / Stk.</p>
+                            </div>
+
+                            <div class="basket-item-action-container">
+                                <div class="basket-action basket-item-update">
+                                    <form method="POST" action="{% url 'update_quantity' item.id %}">
+                                        {% csrf_token %}
+                                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 50px;">
+                                        <button type="submit" class="update-button"><img src="{% static 'images/icons/icon-refresh-20.png' %}" alt="refresh"></button>
+                                    </form>
+                                </div>
+                                <div class="basket-action basket-item-delete">
+                                    <form method="POST" action="{% url 'remove_from_basket' item.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="remove-button"><img src="{% static 'images/icons/icon-delete-20.png' %}" alt="delete"></button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="basket-item-right">
+                                <p class="basket-item-sum">{{ item.get_total_price|floatformat:2 }} €</p>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="basket-total-container">
+                <p class="basket-total-headline">Summe</p> 
+                <p class="basket-total">{{ total_price|floatformat:2 }} €</p>
+            </div>
+
+        {% else %}
+            <p>Ihr Warenkorb ist leer.</p>
+        {% endif %}
     {% else %}
-        <p>Ihr Warenkorb ist leer.</p>
+        <p>Bitte loggen Sie sich ein, um Ihren Warenkorb zu sehen.</p>
     {% endif %}
+</div>
+
+
+{% comment %} 
+<div class="basket-container">
+    {% if user.is_authenticated %}
+    <h2>Ihr Warenkorb</h2>
+        {% if cart_items %}
+            <table class="basket-table">
+                <tbody>
+                    {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'update_quantity' item.id %}">
+                                    {% csrf_token %}
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 50px;">
+                                    <button type="submit" class="update-button">Aktualisieren</button>
+                                </form>
+                            </td>
+                            <td>{{ item.product.smartphone.basic_price|floatformat:2 }} €</td>
+                            <td>{{ item.get_total_price|floatformat:2 }} €</td>
+                            <td>
+                                <form method="POST" action="{% url 'remove_from_basket' item.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="remove-button">Entfernen</button>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <div class="image">
+                            <img src="{{ item.product.smartphone.pictureFront.url }}" alt="{{ item.product.smartphone.model }}">
+                        </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="total-price">
+                <strong>Gesamtpreis aller Produkte:</strong> {{ total_price|floatformat:2 }} €
+            </div>
+        {% else %}
+            <p>Ihr Warenkorb ist leer.</p>
+        {% endif %}
 {% else %}
     <p>Bitte loggen Sie sich ein, um Ihren Warenkorb zu sehen.</p>
 {% endif %}
-</div>
 
+</div>
+ {% endcomment %}

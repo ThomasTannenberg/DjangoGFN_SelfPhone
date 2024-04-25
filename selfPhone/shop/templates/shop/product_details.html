@@ -25,9 +25,15 @@
                 {% endif %}
             </div>
 
+
+
             <!-- PRODUCT INFORMATION -->
             <div class="container-product-information">
+
+                <form id="add-to-basket-form" method="POST">
+
                 <div class="container-product-information-inner">
+
                     <div class="product-informations">
                         <div class="product-header">
                             <div class="product-header-name">
@@ -103,7 +109,7 @@
 
                     <!-- Add to Basket Form -->
                     <div class="add-to-basket-container">
-                        <form id="add-to-basket-form" method="POST">
+
                             {% csrf_token %}
                             <input type="hidden" name="product_id" value="{{ smartphone.id }}">
                             <label for="quantity">Menge:</label>
@@ -115,7 +121,7 @@
                                 <option value="5">5</option>
                             </select>
                             <button type="submit" class="add-to-basket">In den Warenkorb</button>
-                        </form>
+
                     </div>
 
                     <div class="details-container">
@@ -130,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

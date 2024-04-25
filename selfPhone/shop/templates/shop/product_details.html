@@ -144,7 +144,7 @@
 
 
 <script>
-    // AJAX request to add product to basket
+  
     document.getElementById('add-to-basket-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
         var formData = new FormData(this);
@@ -153,8 +153,8 @@
         xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                // warenkorb laden, nachdem die daten gesendet worden sind
-                window.location.reload();
+                
+                window.location.reload();  // BITTE NICHT LÖSCHEN, SONST WIRD DIE SEITE NICHT NEU GELADEN
             }
         };
         xhr.send(formData);

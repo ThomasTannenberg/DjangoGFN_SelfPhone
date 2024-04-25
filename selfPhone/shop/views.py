@@ -135,6 +135,7 @@ def product_details(request, smartphone_id):
 
 
 def basket(request):
+    seite = 'basket'
     if not request.user.is_authenticated:
         # Redirect to login if the user is not authenticated
         return redirect('login')
@@ -175,46 +176,46 @@ def update_quantity(request, item_id):
     if quantity and quantity.isdigit():
         cart_item.quantity = int(quantity)
         cart_item.save()
-    return redirect('basket')
+    return redirect('shop')
 
 
 @require_POST
 def remove_from_basket(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     cart_item.delete()
-    return redirect('basket')
+    return redirect('shop')
 
 
-@ login_required
-def checkout(request):
-    try:
-        customer = Costumer.objects.get(customer=request.user)
-        address = Address.objects.filter(customer=customer).first()
-        cart_items = CartItem.objects.filter(
-            product__smartphone__customer=customer, is_ordered=False)
-        if not cart_items:
-            messages.info(request, "Ihr Warenkorb ist leer.")
-            return render(request, 'shop/checkout.html', {
-                'customer': customer,
-                'address': address,
-                'cart_items': cart_items
-            })
-        return render(request, 'shop/checkout.html', {
-            'customer': customer,
-            'address': address,
-            'cart_items': cart_items
-        })
-    except Costumer.DoesNotExist:
-        messages.error(request, "Kundeninformationen nicht gefunden.")
-        return redirect('login')
-    except Exception as e:
-        # Für andere unerwartete Ausnahmen
-        messages.error(request, f"Ein Fehler ist aufgetreten: {str(e)}")
-        return redirect('home')
+# @ login_required
+# def checkout(request):
+#     try:
+#         customer = Costumer.objects.get(customer=request.user)
+#         address = Address.objects.filter(customer=customer).first()
+#         cart_items = CartItem.objects.filter(
+#             product__smartphone__customer=customer, is_ordered=False)
+#         if not cart_items:
+#             messages.info(request, "Ihr Warenkorb ist leer.")
+#             return render(request, 'shop/checkout.html', {
+#                 'customer': customer,
+#                 'address': address,
+#                 'cart_items': cart_items
+#             })
+#         return render(request, 'shop/checkout.html', {
+#             'customer': customer,
+#             'address': address,
+#             'cart_items': cart_items
+#         })
+#     except Costumer.DoesNotExist:
+#         messages.error(request, "Kundeninformationen nicht gefunden.")
+#         return redirect('login')
+#     except Exception as e:
+#         # Für andere unerwartete Ausnahmen
+#         messages.error(request, f"Ein Fehler ist aufgetreten: {str(e)}")
+#         return redirect('home')
 
 
-def test(request):
-    return render(request, 'shop/test.html')
+# def test(request):
+#     return render(request, 'shop/test.html')
 
 
 def login_user(request):

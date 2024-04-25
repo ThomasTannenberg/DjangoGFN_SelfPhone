@@ -115,7 +115,8 @@ def product_details(request, smartphone_id):
 
     # Entfernt Duplikate da SQLite kein distinct kennt
     color_variations = {v['color']: v for v in color_results}.values()
-    storage_variations = {v['storage_size']: v for v in storage_results}.values()
+    storage_variations = {v['storage_size']
+        : v for v in storage_results}.values()
     memory_variations = {v['memory_size']: v for v in memory_results}.values()
 
     # Anpassen der Farbcodes mit COLOR_MAP, von ganz oben
@@ -134,10 +135,9 @@ def product_details(request, smartphone_id):
 
 
 def basket(request):
-    # if not request.user.is_authenticated:
-    #     # Redirect to login if the user is not authenticated
-    #     # return redirect('shop')
-    #     pass
+    if not request.user.is_authenticated:
+        # Redirect to login if the user is not authenticated
+        return redirect('login')
 
     if request.method == 'POST':
         product_id = request.POST.get('product_id')

@@ -12,11 +12,11 @@ urlpatterns = [
 
     path('basket/', views.basket, name='basket'),
 
-    path('checkout/', views.checkout, name='checkout'),
+    #     path('checkout/', views.checkout, name='checkout'),
 
     path('login/', views.login_user, name='login'),
 
-    path('test/', views.test, name='test'),
+    #     path('test/', views.test, name='test'),
 
     path('register/', views.register_user, name='register'),
 

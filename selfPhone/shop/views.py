@@ -1,4 +1,5 @@
 
+from .models import Smartphone, Product, CartItem
 from .models import Smartphone
 from django.shortcuts import render
 from .models import *
@@ -114,8 +115,7 @@ def product_details(request, smartphone_id):
 
     # Entfernt Duplikate da SQLite kein distinct kennt
     color_variations = {v['color']: v for v in color_results}.values()
-    storage_variations = {v['storage_size']
-        : v for v in storage_results}.values()
+    storage_variations = {v['storage_size']: v for v in storage_results}.values()
     memory_variations = {v['memory_size']: v for v in memory_results}.values()
 
     # Anpassen der Farbcodes mit COLOR_MAP, von ganz oben
@@ -134,29 +134,38 @@ def product_details(request, smartphone_id):
 
 
 def basket(request):
+    # if not request.user.is_authenticated:
+    #     # Redirect to login if the user is not authenticated
+    #     # return redirect('shop')
+    #     pass
+
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
         quantity = int(request.POST.get('quantity', 1))
-        if product_id is not None:
+        if product_id:
             smartphone = get_object_or_404(Smartphone, pk=product_id)
             product, created = Product.objects.get_or_create(
                 smartphone=smartphone)
 
             cart_item, created = CartItem.objects.get_or_create(
                 product=product,
+                user=request.user,  # Assuming you have a user field in CartItem
                 defaults={'quantity': quantity}
             )
             if not created:
                 cart_item.quantity += quantity
                 cart_item.save()
-            # Leiten Sie nach dem Hinzufügen zum Warenkorb zur Warenkorb-Seite oder einer Bestätigungsseite weiter
+
             return redirect('basket')
 
-    # Anzeigen des aktuellen Warenkorbinhalts für den Benutzer
-    # Filtern nach Benutzer, wenn Benutzeranmeldung implementiert ist
-    cart_items = CartItem.objects.filter(is_ordered=False)
+    # Retrieve all items for the current user that have not been ordered yet
+    cart_items = CartItem.objects.filter(user=request.user, is_ordered=False)
     total_price = sum(item.get_total_price for item in cart_items)
-    return render(request, 'shop/basket.html', {'cart_items': cart_items, 'total_price': total_price})
+
+    return render(request, 'shop/basket.html', {
+        'cart_items': cart_items,
+        'total_price': total_price
+    })
 
 
 @require_POST

@@ -997,7 +997,8 @@ $bannerimage: apple, samsung, google, sony, huawei, xiaomi;
 
 .registration-form-field {
     position: relative;
-    .field-label {
+    .field-label,
+    label {
         position: absolute;
         font-size: $fs-small;
         color: $color-dark;
@@ -1010,9 +1011,10 @@ $bannerimage: apple, samsung, google, sony, huawei, xiaomi;
         width: 100%;
         height: 52px;
         border: none;
+        border-radius: .5rem;
         background: rgba(230, 230, 230, .5);
         padding: $spacing-xs;
-        margin-bottom: $spacing-sm;
+        margin-bottom: $spacing-md;
         &:focus,
         &:focus-visible {
             border: none;
@@ -1022,7 +1024,10 @@ $bannerimage: apple, samsung, google, sony, huawei, xiaomi;
         }
         &:valid + .field-label,
         &:focus + .field-label,
-        &:focus-visible + .field-label {
+        &:focus-visible + .field-label,
+        &:valid + label,
+        &:focus + label,
+        &:focus-visible + label {
             position: absolute;
             top: calc(-1 * $fs-small / 2);
             left: 0;
@@ -1067,14 +1072,20 @@ $bannerimage: apple, samsung, google, sony, huawei, xiaomi;
     }
 }
 
-#registerButton {
+#registerButton,
+#loginButton,
+#logoutButton,
+#registerNowButton {
+    display: block;
     border: none;
     border-radius: $spacing-xs;
     padding: $spacing-md $spacing-xl;
-    margin-top: $spacing-xl;;
+    margin-top: calc($spacing-xs / 2);
     width: 100%;
+    font-size: $fs-small;
     color: $color-light;
     letter-spacing: 1px;
+    text-align: center;
     background: {
         image: linear-gradient(90deg, $color-accent-secondary 50%, $color-dark 50%);
         size: 200%;
@@ -1085,6 +1096,10 @@ $bannerimage: apple, samsung, google, sony, huawei, xiaomi;
     &:hover {
         background-position: left;
     }
+}
+
+#logoutButton {
+    background-image: linear-gradient(90deg, #960000 50%, $color-dark 50%);
 }
 
 
@@ -1159,4 +1174,30 @@ $bannerimage: apple, samsung, google, sony, huawei, xiaomi;
             color: $color-dark;
         }
     }
+}
+
+// LOGIN- LOGOUT-SLIDER
+
+.login-container-item {
+    padding: $spacing-lg $spacing-sm;
+    color: $color-secondary;
+    h4 {
+        font-weight: 600;
+        letter-spacing: 0;
+        color: $color-dark;
+        margin-bottom: $spacing-md;
+        text-transform: uppercase;
+    }
+}
+
+.already-registered {
+    margin-top: $spacing-sm;
+    padding-top: $spacing-sm;
+    border-top: 1px solid rgba(0, 0, 0, .25);
+}
+
+#loginButton,
+#logoutButton,
+#registerNowButton {
+    padding: $spacing-sm;
 }

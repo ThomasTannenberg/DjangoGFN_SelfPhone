@@ -61,7 +61,7 @@
                     <div class="product-variation-container">
                         <!-- Color Variations -->
                         <div class="variation-container">
-                            <h6 class="variation-headline">Farbe wählen:</h6>
+                            <h6 class="variation-headline">Farbe ändern:</h6>
                             <div class="variation-selection">
                                 {% for variation in color_variations %}
                                 <a href="{% url 'product_details' variation.id %}" class="variation-link" style="background-color: {{ variation.color_code }}; border-radius: 50%; width: 32px; height: 32px;">
@@ -72,7 +72,7 @@
                         </div>
                         <!-- Storage Variations -->
                         <div class="variation-container">
-                            <h6 class="variation-headline">Speicherplatz wählen:</h6>
+                            <h6 class="variation-headline">Speicherplatz ändern:</h6>
                             <div class="variation-selection">
                                 {% for variation in storage_variations %}
                                 <a href="{% url 'product_details' variation.id %}" class="variation-link" style="background: #eee; width: 80px; height: 50px; display: flex; justify-content: center; align-items: center;">
@@ -83,7 +83,7 @@
                         </div>
                         <!-- Memory Variations -->
                         <div class="variation-container">
-                            <h6 class="variation-headline">Arbeitsspeicher wählen:</h6>
+                            <h6 class="variation-headline">Arbeitsspeicher ändern:</h6>
                             <div class="variation-selection">
                                 {% for variation in memory_variations %}
                                 <a href="{% url 'product_details' variation.id %}" class="variation-link" style="background: #eee; width: 80px; height: 50px; display: flex; justify-content: center; align-items: center;">

@@ -1071,7 +1071,8 @@ main {
 .registration-form-field {
   position: relative;
 }
-.registration-form-field .field-label {
+.registration-form-field .field-label,
+.registration-form-field label {
   position: absolute;
   font-size: 14px;
   color: #000;
@@ -1084,9 +1085,10 @@ main {
   width: 100%;
   height: 52px;
   border: none;
+  border-radius: 0.5rem;
   background: rgba(230, 230, 230, 0.5);
   padding: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 .registration-form-field input:focus, .registration-form-field input:focus-visible {
   border: none;
@@ -1094,7 +1096,7 @@ main {
   font-size: 14px;
   background: #d5d5d5;
 }
-.registration-form-field input:valid + .field-label, .registration-form-field input:focus + .field-label, .registration-form-field input:focus-visible + .field-label {
+.registration-form-field input:valid + .field-label, .registration-form-field input:focus + .field-label, .registration-form-field input:focus-visible + .field-label, .registration-form-field input:valid + label, .registration-form-field input:focus + label, .registration-form-field input:focus-visible + label {
   position: absolute;
   top: -7px;
   left: 0;
@@ -1132,22 +1134,35 @@ main {
   }
 }
 
-#registerButton {
+#registerButton,
+#loginButton,
+#logoutButton,
+#registerNowButton {
+  display: block;
   border: none;
   border-radius: 0.5rem;
   padding: 1.5rem 3rem;
-  margin-top: 3rem;
+  margin-top: 0.25rem;
   width: 100%;
+  font-size: 14px;
   color: #fff;
   letter-spacing: 1px;
+  text-align: center;
   background-image: linear-gradient(90deg, #188781 50%, #000 50%);
   background-size: 200%;
   background-position: right;
   transition: ease 0.35s all;
   cursor: pointer;
 }
-#registerButton:hover {
+#registerButton:hover,
+#loginButton:hover,
+#logoutButton:hover,
+#registerNowButton:hover {
   background-position: left;
+}
+
+#logoutButton {
+  background-image: linear-gradient(90deg, #960000 50%, #000 50%);
 }
 
 #registration-header {
@@ -1240,4 +1255,28 @@ main {
 }
 .already-registered-container a:hover {
   color: #000;
+}
+
+.login-container-item {
+  padding: 2rem 1rem;
+  color: #666;
+}
+.login-container-item h4 {
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #000;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.already-registered {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+#loginButton,
+#logoutButton,
+#registerNowButton {
+  padding: 1rem;
 }/*# sourceMappingURL=style.css.map */

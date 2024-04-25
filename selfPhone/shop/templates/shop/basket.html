@@ -1,7 +1,4 @@
-{% extends 'shop/base.html' %}
-{% load static %}
-
-{% block content %}
+{% if user.is_authenticated %}
 <div class="basket-container">
     <h2>Ihr Warenkorb</h2>
     {% if cart_items %}
@@ -44,5 +41,8 @@
     {% else %}
         <p>Ihr Warenkorb ist leer.</p>
     {% endif %}
+{% else %}
+    <p>Bitte loggen Sie sich ein, um Ihren Warenkorb zu sehen.</p>
+{% endif %}
 </div>
-{% endblock content %}
+
